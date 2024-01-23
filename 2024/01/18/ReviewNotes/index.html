@@ -1,0 +1,2559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="JOKER">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://zli1024.github.io/2024/01/18/reviewnotes/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Probabilistic ModelsHexo图片插入太不方便了！（这篇review当时有点赶，所以都插的图片） Anyway, I have my own blog now lol. Lecture 4 Discrete-time Markov Chains Review1 Defining Markov ChainDefinition of Markov Chain  Conception:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISYE6650">
+<meta property="og:url" content="https://zli1024.github.io/2024/01/18/ReviewNotes/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Probabilistic ModelsHexo图片插入太不方便了！（这篇review当时有点赶，所以都插的图片） Anyway, I have my own blog now lol. Lecture 4 Discrete-time Markov Chains Review1 Defining Markov ChainDefinition of Markov Chain  Conception:">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015100622768.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015100907845.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015101203238.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015101547785.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015101641028.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015105318155.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015105506325.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015105622440.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015114230509.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115300378.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115323518.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115410970.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115543861.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115823649.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015115929392.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015120208675.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015120255810.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015120349751.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015120420260.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015130902067.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015131015529.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015131819573.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132056874.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132255033.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132427986.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132522736.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132536038.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132659037.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132710856.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132718110.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132809778.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015132911542.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015133124991.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015133615666.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015140101176.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015140323219.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015140333624.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015141037782.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015142745287.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015142804382.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015142812483.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015144629480.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015144638543.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015144646365.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015145023077.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015145414862.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015145055171.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231015145516435.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151320008.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151327374.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151334313.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151341855.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151348734.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151356332.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015151410815.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015152231869.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015153858802.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015154030221.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015154844730.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015155014339.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231015155035421.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023141019789.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023141038355.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231202212054707.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231202212106438.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231028211009224.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231202220843333.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023152905091.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023152915368.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023153003419.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023153154466.png">
+<meta property="og:image" content="https://zli1024.github.io/images/image-20231023153345025.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023153505943.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023154215044.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023154400682.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023161207192.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023161218388.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028173804166.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028173816655.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028174831658.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028174850107.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028175134643.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028181634803.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028180136557.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028180159333.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028181957818.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028182304084.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028183940918.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028183955000.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028184032326.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028201523549.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028201540904.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231030150647012.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203205906954.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231109181635594.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203212400451.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203214131502.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221412526.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203220950143.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221054758.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221603899.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221635026.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209195510683.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209195524060.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203223645243.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224217866.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224149012.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224359695.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203225403698.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203225916208.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164007894.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164026134.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164041227.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164208474.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164701232.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164338390.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204165336863.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204165359729.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204170032930.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204170947266.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204172207169.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204175500462.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207150030838.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207151927602.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160511756.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160539525.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160556904.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160705119.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160718647.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207163504781.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207163902842.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207164125850.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207164321929.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207165805001.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207170112934.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207170304292.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171151670.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171242240.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171253745.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171540865.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171930077.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207172700807.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207194826248.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207200518061.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207201605334.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207210311676.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202445398.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202734336.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202853502.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202919247.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207203221336.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207203820439.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154135159.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154219507.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154242139.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154553760.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208160936017.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208160954197.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208161007570.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208161756330.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165052804.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165158473.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165209363.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165230696.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165257319.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208170641259.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208170811929.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171239967.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171458050.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171551869.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171622822.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171650382.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208172411659.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208172918608.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208173755979.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208173953225.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208174017784.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208185104478.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190849079.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190900563.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190911033.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208191031039.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208191952811.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208192013094.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208194000049.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208195115854.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208195128640.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231211134022553.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231211134050452.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209151603799.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209151835845.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209152642397.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209152649845.png">
+<meta property="og:image" content="c:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209155904013.png">
+<meta property="article:published_time" content="2024-01-18T13:23:39.710Z">
+<meta property="article:modified_time" content="2024-01-19T10:56:46.477Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Queueing theory">
+<meta property="article:tag" content="Markov chain">
+<meta property="article:tag" content="Probabilistic models">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zli1024.github.io/images/image-20231015100622768.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/emo.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/emo.ico">
+    <meta name="theme-color" content="#58dcdd">
+    <link rel="shortcut icon" href="/images/emo.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            ISYE6650 -
+        
+        HahaLand
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    
+        <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    
+<script src="/js/libs/anime.min.js"></script>
+
+    <h1 class="ml13">
+        HahaLand
+    </h1>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+
+        anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [100,0],
+                translateZ: 0,
+                opacity: [0,1],
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i
+            }).add({
+            targets: '.ml13 .letter',
+            translateY: [0,-100],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1200,
+            delay: (el, i) => 100 + 30 * i
+        });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            hidePreloaderAfterTimeout(1000); // Hide after 1000 milliseconds once the window has loaded
+        });
+
+        // Backup failsafe: Hide preloader after a maximum of 5000 milliseconds, regardless of the window load event
+        hidePreloaderAfterTimeout(5000);
+
+        function hidePreloaderAfterTimeout(delay) {
+            setTimeout(function () {
+                var preloader = document.querySelector('.preloader');
+                preloader.style.opacity = '0';
+                setTimeout(function () {
+                    preloader.style.display = 'none';
+                }, 200);
+            }, delay);
+        }
+    </script>
+</div>
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@500&display=swap" rel="stylesheet">
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    window.config = {"hostname":"zli1024.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left"},"word_count":{"enable":true,"count":true,"min2read":false},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":true,"family":"JetBrains Mono","url":"https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"all_rights_reserved"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#58dcdd","secondary":null},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Poppins","url":"https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@500&display=swap"}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Welcome to MyBlog","subtitle":{"text":["今天你养生了吗？"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":150,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.0","navbar":{"auto_hide":true,"color":{"left":"#90bebf","right":"#e4f6f4","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Projects":{"path":"/Projects","icon":"fa-solid fa-code"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Status":{"path":"https://status.ohevan.com/","icon":"fa-regular fa-chart-bar"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/zli1024","Blog":"https://zli1024.github.io"}}},"search":{"enable":true,"preload":true},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}},"categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"Redefine my blog","links":{"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/1/18 13:00"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                HahaLand
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/Projects"
+                                        >
+                                    <i class="fa-solid fa-code fa-fw"></i>
+                                    PROJECTS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   target="_blank" rel="noopener" href="https://status.ohevan.com/"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    STATUS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/zli1024">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://zli1024.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/Projects"
+                        >
+                            <span>
+                                PROJECTS
+                            </span>
+                            
+                                <i class="fa-solid fa-code fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           target="_blank" rel="noopener" href="https://status.ohevan.com/"
+                        >
+                            <span>
+                                STATUS
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/zli1024">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://zli1024.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color text-4xl md:text-6xl font-bold px-2 sm:px-6 md:px-8 py-3">ISYE6650</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/face.ico">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">JOKER</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-18 21:23:39</span>
+        <span class="mobile">2024-01-18 21:23:39</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-01-19 18:56:46</span>
+            <span class="mobile">2024-01-19 18:56:46</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Courses/">Courses</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Queueing-theory/">Queueing theory</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Markov-chain/">Markov chain</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Probabilistic-models/">Probabilistic models</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>843 Words</span>
+        </span>
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="Probabilistic-Models"><a href="#Probabilistic-Models" class="headerlink" title="Probabilistic Models"></a>Probabilistic Models</h1><p><code>Hexo</code>图片插入太不方便了！（这篇review当时有点赶，所以都插的图片） Anyway, I have my own blog now lol.</p>
+<h2 id="Lecture-4-Discrete-time-Markov-Chains-Review"><a href="#Lecture-4-Discrete-time-Markov-Chains-Review" class="headerlink" title="Lecture 4 Discrete-time Markov Chains Review"></a>Lecture 4 Discrete-time Markov Chains Review</h2><h3 id="1-Defining-Markov-Chain"><a href="#1-Defining-Markov-Chain" class="headerlink" title="1 Defining Markov Chain"></a>1 Defining Markov Chain</h3><h4 id="Definition-of-Markov-Chain"><a href="#Definition-of-Markov-Chain" class="headerlink" title="Definition of Markov Chain"></a>Definition of Markov Chain</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015100622768.png"
+                      alt="image-20231015100622768"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015100907845.png"
+                      alt="image-20231015100907845"
+                ></p>
+<p>Conception: 1 Process 2 State 3 State space 4 Trajectory</p>
+<h4 id="Definition-of-Transition-Probabilities-of-MC"><a href="#Definition-of-Transition-Probabilities-of-MC" class="headerlink" title="Definition of Transition Probabilities of MC"></a>Definition of Transition Probabilities of MC</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015101203238.png"
+                      alt="image-20231015101203238"
+                ></p>
+<p>Columns don’t add to 1 generally. But when it does, it satisfies the following requirements:</p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015101547785.png"
+                      alt="image-20231015101547785"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015101641028.png"
+                      alt="image-20231015101641028"
+                ></p>
+<h4 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h4><p><strong>1</strong> Forecasting the Weather </p>
+<p>Depends on the last day whether or not it is raining</p>
+<p>Example 4.1 page 184 </p>
+<p><strong>2</strong> A Communication System</p>
+<p>Example 4.2 page 184</p>
+<p><strong>3</strong> How to create a new Markov chain where one of the states is absorbing:</p>
+<p>Example 4.3 page 184</p>
+<p>Exercise 10\11</p>
+<p><strong>4</strong> Transforming a Process into a Markov Chain</p>
+<p>Example 4.4 page 185 </p>
+<p><strong>5</strong> A Random Walk Model</p>
+<p>$P_{i,i+1}&#x3D;p&#x3D;1-P_{i,i-1},  i&#x3D;0,\pm1,…$</p>
+<p><strong>6</strong> A Gambling Model</p>
+<p> $P_{i,i+1}&#x3D;p&#x3D;1-P_{i,i-1},  i&#x3D;1,2,…,N-1$</p>
+<p>$P_{00}&#x3D;P_{NN}&#x3D;1$</p>
+<p>Note that the preceding is a finite state random walk with absorbing barriers(State 0 and N)</p>
+<h3 id="2-n-step-Transition-Probabilities"><a href="#2-n-step-Transition-Probabilities" class="headerlink" title="2 n-step Transition Probabilities"></a>2 n-step Transition Probabilities</h3><h4 id="Definition-3"><a href="#Definition-3" class="headerlink" title="Definition 3"></a>Definition 3</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015105318155.png"
+                      alt="image-20231015105318155"
+                ></p>
+<h4 id="Chapman-Kolmogorov-Equations"><a href="#Chapman-Kolmogorov-Equations" class="headerlink" title="Chapman-Kolmogorov Equations"></a>Chapman-Kolmogorov Equations</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015105506325.png"
+                      alt="image-20231015105506325"
+                ></p>
+<h4 id="n-step-Transition-Matrix"><a href="#n-step-Transition-Matrix" class="headerlink" title="n-step Transition Matrix"></a>n-step Transition Matrix</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015105622440.png"
+                      alt="image-20231015105622440"
+                ></p>
+<h4 id="Unconditional-Probabilities"><a href="#Unconditional-Probabilities" class="headerlink" title="Unconditional Probabilities"></a>Unconditional Probabilities</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015114230509.png"
+                      alt="image-20231015114230509"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115300378.png"
+                      alt="image-20231015115300378"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115323518.png"
+                      alt="image-20231015115323518"
+                ></p>
+<h3 id="3-Classification-of-States"><a href="#3-Classification-of-States" class="headerlink" title="3 Classification of States"></a>3 Classification of States</h3><h4 id="Basic-conception"><a href="#Basic-conception" class="headerlink" title="Basic conception"></a>Basic conception</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115410970.png"
+                      alt="image-20231015115410970"
+                ></p>
+<p><strong>Communication is an equivalence relation</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115543861.png"
+                      alt="image-20231015115543861"
+                ></p>
+<h4 id="Class-of-States"><a href="#Class-of-States" class="headerlink" title="Class of States"></a>Class of States</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115823649.png"
+                      alt="image-20231015115823649"
+                ></p>
+<h4 id="Irreducible-Markov-Chain"><a href="#Irreducible-Markov-Chain" class="headerlink" title="Irreducible Markov Chain"></a>Irreducible Markov Chain</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015115929392.png"
+                      alt="image-20231015115929392"
+                ></p>
+<h4 id="Recurrent-and-Transient-Markov-Chain"><a href="#Recurrent-and-Transient-Markov-Chain" class="headerlink" title="Recurrent and Transient Markov Chain"></a>Recurrent and Transient Markov Chain</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015120208675.png"
+                      alt="image-20231015120208675"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015120255810.png"
+                      alt="image-20231015120255810"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015120349751.png"
+                      alt="image-20231015120349751"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015120420260.png"
+                      alt="image-20231015120420260"
+                ></p>
+<h4 id="Properties-of-Recurrent-and-Transient-MC"><a href="#Properties-of-Recurrent-and-Transient-MC" class="headerlink" title="Properties of Recurrent and Transient MC"></a>Properties of Recurrent and Transient MC</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015130902067.png"
+                      alt="image-20231015130902067"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015131015529.png"
+                      alt="image-20231015131015529"
+                ></p>
+<p>For example:</p>
+<p>If Markov Chain has three classes, e.g. , $\left{0,1\right}$ $\left{2,3\right}$ $\left{4\right}$, then each class is either recurrent or transient.</p>
+<p>If Markov Chain is irreducible, then this chain is either recurrent or transient.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015131819573.png"
+                      alt="image-20231015131819573"
+                ></p>
+<p> Mark: Not all states in a finite Markov chain can be transient.</p>
+<h4 id="Example-for-determining-classes-of-states"><a href="#Example-for-determining-classes-of-states" class="headerlink" title="Example for determining classes of states"></a>Example for determining classes of states</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132056874.png"
+                      alt="image-20231015132056874"
+                ></p>
+<p>Remarks: All states communicate, so this chain is irreducible.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132255033.png"
+                      alt="image-20231015132255033"
+                ></p>
+<h3 id="4-Stationary-Distribution-of-MC"><a href="#4-Stationary-Distribution-of-MC" class="headerlink" title="4 Stationary Distribution of MC"></a>4 Stationary Distribution of MC</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132427986.png"
+                      alt="image-20231015132427986"
+                ></p>
+<h4 id="Limiting-Probabilities"><a href="#Limiting-Probabilities" class="headerlink" title="Limiting Probabilities"></a>Limiting Probabilities</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132522736.png"
+                      alt="image-20231015132522736"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132536038.png"
+                      alt="image-20231015132536038"
+                ></p>
+<p><strong><u>We can see that no matter which state initially is, $\pi_0$ and $\pi_1$ for each initial states are the same.</u></strong></p>
+<h5 id="Examples-1"><a href="#Examples-1" class="headerlink" title="Examples"></a>Examples</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132659037.png"
+                      alt="image-20231015132659037"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132710856.png"
+                      alt="image-20231015132710856"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132718110.png"
+                      alt="image-20231015132718110"
+                ></p>
+<h4 id="Long-run-proportions-are-not-always-limiting-probabilities"><a href="#Long-run-proportions-are-not-always-limiting-probabilities" class="headerlink" title="Long-run proportions are not always limiting probabilities"></a>Long-run proportions are not always limiting probabilities</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132809778.png"
+                      alt="image-20231015132809778"
+                ></p>
+<h4 id="Periodic-vs-Aperiodic"><a href="#Periodic-vs-Aperiodic" class="headerlink" title="Periodic vs Aperiodic"></a>Periodic vs Aperiodic</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015132911542.png"
+                      alt="image-20231015132911542"
+                ></p>
+<h4 id="Key-results-so-far"><a href="#Key-results-so-far" class="headerlink" title="Key results so far"></a>Key results so far</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015133124991.png"
+                      alt="image-20231015133124991"
+                ></p>
+<p><strong>Finite</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015133615666.png"
+                      alt="image-20231015133615666"
+                ></p>
+<p>Remarks: Point 2 shows that $\pi_j$ doesn’t depend on initial states $i$</p>
+<p><strong>Infinite</strong></p>
+<p><strong>Positive recurrent vs Null recurrent</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015140101176.png"
+                      alt="image-20231015140101176"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015140323219.png"
+                      alt="image-20231015140323219"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015140333624.png"
+                      alt="image-20231015140333624"
+                ></p>
+<p>&#x3D;&#x3D;***&#x3D;&#x3D;&#x3D;&#x3D;For example&#x3D;&#x3D;:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015141037782.png"
+                      alt="image-20231015141037782"
+                ></p>
+<p><em>A little resemblance with random walk but the state has no negative figure.</em></p>
+<p><em>And also a little resemblance with gambling model but this one has infinite states.</em></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015142745287.png"
+                      alt="image-20231015142745287"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015142804382.png"
+                      alt="image-20231015142804382"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015142812483.png"
+                      alt="image-20231015142812483"
+                ></p>
+<h4 id="Absorbing-states"><a href="#Absorbing-states" class="headerlink" title="Absorbing states"></a>Absorbing states</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015144629480.png"
+                      alt="image-20231015144629480"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015144638543.png"
+                      alt="image-20231015144638543"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015144646365.png"
+                      alt="image-20231015144646365"
+                ></p>
+<h4 id="The-Gambler’s-Ruin-Problem"><a href="#The-Gambler’s-Ruin-Problem" class="headerlink" title="The Gambler’s Ruin Problem"></a>The Gambler’s Ruin Problem</h4><p>Description:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015145023077.png"
+                      alt="image-20231015145023077"
+                ></p>
+<p>Thinking:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015145414862.png"
+                      alt="image-20231015145414862"
+                ></p>
+<p>Solution:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015145055171.png"
+                      alt="image-20231015145055171"
+                ><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231015145516435.png"
+                      alt="image-20231015145516435"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151320008.png"
+                      alt="image-20231015151320008"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151327374.png"
+                      alt="image-20231015151327374"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151334313.png"
+                      alt="image-20231015151334313"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151341855.png"
+                      alt="image-20231015151341855"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151348734.png"
+                      alt="image-20231015151348734"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151356332.png"
+                      alt="image-20231015151356332"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015151410815.png"
+                      alt="image-20231015151410815"
+                ></p>
+<p><strong>For example</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015152231869.png"
+                      alt="image-20231015152231869"
+                ></p>
+<h3 id="5-Mean-time-spent-in-transient-states"><a href="#5-Mean-time-spent-in-transient-states" class="headerlink" title="5 Mean time spent in transient states"></a>5 Mean time spent in transient states</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015153858802.png"
+                      alt="image-20231015153858802"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015154030221.png"
+                      alt="image-20231015154030221"
+                ></p>
+<p><strong>For example</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015154844730.png"
+                      alt="image-20231015154844730"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015155014339.png"
+                      alt="image-20231015155014339"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231015155035421.png"
+                      alt="image-20231015155035421"
+                ></p>
+<h2 id="Lecture-5-The-Exponential-Distribution-and-the-Poisson-Process"><a href="#Lecture-5-The-Exponential-Distribution-and-the-Poisson-Process" class="headerlink" title="Lecture 5 The Exponential Distribution and the Poisson Process"></a>Lecture 5 The Exponential Distribution and the Poisson Process</h2><h4 id="1-The-Exponential-Distribution"><a href="#1-The-Exponential-Distribution" class="headerlink" title="1 The Exponential Distribution"></a>1 The Exponential Distribution</h4><h5 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h5><p>CDF\PDF\E(X)\Var(X)</p>
+<h5 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h5><p>Memoryless</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023141019789.png"
+                      alt="image-20231023141019789"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023141038355.png"
+                      alt="image-20231023141038355"
+                ></p>
+<p>Example:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231202212054707.png"
+                      alt="image-20231202212054707"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231202212106438.png"
+                      alt="image-20231202212106438"
+                ></p>
+<p>Further properties</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231028211009224.png"
+                      alt="image-20231028211009224"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231202220843333.png"
+                      alt="image-20231202220843333"
+                ></p>
+<p><strong>The failure rate function</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023152905091.png"
+                      alt="image-20231023152905091"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023152915368.png"
+                      alt="image-20231023152915368"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023153003419.png"
+                      alt="image-20231023153003419"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023153154466.png"
+                      alt="image-20231023153154466"
+                ></p>
+<h4 id="2-The-Poisson-Process"><a href="#2-The-Poisson-Process" class="headerlink" title="2 The Poisson Process"></a>2 The Poisson Process</h4><h5 id="Counting-Process"><a href="#Counting-Process" class="headerlink" title="Counting Process"></a>Counting Process</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/../images/image-20231023153345025.png"
+                      alt="image-20231023153345025"
+                ></p>
+<p><strong>Two concepts:</strong></p>
+<p>Independent increments:</p>
+<p>If the numbers of events that occur in disjoint time intervals are independent.</p>
+<p>Stationary increments:</p>
+<p>If the distribution of the number of events that occur in any interval of time depends only on the length of the time interval. In other words, the process has stationary increments if the number of events in the interval $(s,s+t)$ has the same distribution for all $s$</p>
+<h5 id="Definition-of-the-Poisson-Process"><a href="#Definition-of-the-Poisson-Process" class="headerlink" title="Definition of the Poisson Process"></a>Definition of the Poisson Process</h5><p>1 one of the important types of counting process $N(t)$ </p>
+<p>2 极小量 $o(h)$:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023153505943.png"
+                      alt="image-20231023153505943"
+                ></p>
+<p>3 Definition of the Poisson Process:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023154215044.png"
+                      alt="image-20231023154215044"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023154400682.png"
+                      alt="image-20231023154400682"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023161207192.png"
+                      alt="image-20231023161207192"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231023161218388.png"
+                      alt="image-20231023161218388"
+                ></p>
+<h5 id="5-3-3-Interarrival-and-Waiting-Time-Distributions"><a href="#5-3-3-Interarrival-and-Waiting-Time-Distributions" class="headerlink" title="5.3.3 Interarrival and Waiting Time Distributions"></a>5.3.3 Interarrival and Waiting Time Distributions</h5><p>***Please note that N(t+s)-N(t) is Poisson distribution; and the following $T_n$ are i.i.d exponential random variables.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028173804166.png"
+                      alt="image-20231028173804166"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028173816655.png"
+                      alt="image-20231028173816655"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028174831658.png"
+                      alt="image-20231028174831658"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028174850107.png"
+                      alt="image-20231028174850107"
+                ></p>
+<p>维基百科：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028175134643.png"
+                      alt="image-20231028175134643"
+                ></p>
+<p>Gamma function</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028181634803.png"
+                      alt="image-20231028181634803"
+                ></p>
+<p><strong>Waiting Time</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028180136557.png"
+                      alt="image-20231028180136557"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028180159333.png"
+                      alt="image-20231028180159333"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028181957818.png"
+                      alt="image-20231028181957818"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028182304084.png"
+                      alt="image-20231028182304084"
+                ></p>
+<h4 id="5-3-4-Further-Properties-of-Poisson-Process"><a href="#5-3-4-Further-Properties-of-Poisson-Process" class="headerlink" title="5.3.4 Further Properties of Poisson Process"></a>5.3.4 Further Properties of Poisson Process</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028183940918.png"
+                      alt="image-20231028183940918"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028183955000.png"
+                      alt="image-20231028183955000"
+                ></p>
+<p> (Optional) It is about the proof.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028184032326.png"
+                      alt="image-20231028184032326"
+                ></p>
+<h4 id="Conditional-distribution-of-arrival-time"><a href="#Conditional-distribution-of-arrival-time" class="headerlink" title="Conditional distribution of arrival time"></a>Conditional distribution of arrival time</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028201523549.png"
+                      alt="image-20231028201523549"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231028201540904.png"
+                      alt="image-20231028201540904"
+                ></p>
+<p>Order statistics</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231030150647012.png"
+                      alt="image-20231030150647012"
+                ></p>
+<p>Waiting time order statistics</p>
+<p>It means every Si has the i.i.d uniform distribution like f(t) &#x3D; 1&#x2F;t (Si is the order statistics with uniform distribution)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203205906954.png"
+                      alt="image-20231203205906954"
+                ></p>
+<p>Sampling a Poisson Process</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231109181635594.png"
+                      alt="image-20231109181635594"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203212400451.png"
+                      alt="image-20231203212400451"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203214131502.png"
+                      alt="image-20231203214131502"
+                ></p>
+<p>上面没懂 :(</p>
+<p>PPT后面Example 5.20 记得在上面弄懂后去看</p>
+<p>非重点</p>
+<h4 id="5-4-1-Nonhomogeneous-Poisson-Process"><a href="#5-4-1-Nonhomogeneous-Poisson-Process" class="headerlink" title="5.4.1 Nonhomogeneous Poisson Process"></a>5.4.1 Nonhomogeneous Poisson Process</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221412526.png"
+                      alt="image-20231203221412526"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203220950143.png"
+                      alt="image-20231203220950143"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221054758.png"
+                      alt="image-20231203221054758"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221603899.png"
+                      alt="image-20231203221603899"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203221635026.png"
+                      alt="image-20231203221635026"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209195510683.png"
+                      alt="image-20231209195510683"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209195524060.png"
+                      alt="image-20231209195524060"
+                ></p>
+<h4 id="5-4-2-Compound-Poisson-Process"><a href="#5-4-2-Compound-Poisson-Process" class="headerlink" title="5.4.2 Compound Poisson Process"></a>5.4.2 Compound Poisson Process</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203223645243.png"
+                      alt="image-20231203223645243"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224217866.png"
+                      alt="image-20231203224217866"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224149012.png"
+                      alt="image-20231203224149012"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203224359695.png"
+                      alt="image-20231203224359695"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203225403698.png"
+                      alt="image-20231203225403698"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231203225916208.png"
+                      alt="image-20231203225916208"
+                ></p>
+<h2 id="Lecture-6-Queueing-Theory"><a href="#Lecture-6-Queueing-Theory" class="headerlink" title="Lecture 6 Queueing Theory"></a>Lecture 6 Queueing Theory</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164007894.png"
+                      alt="image-20231204164007894"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164026134.png"
+                      alt="image-20231204164026134"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164041227.png"
+                      alt="image-20231204164041227"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164208474.png"
+                      alt="image-20231204164208474"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164701232.png"
+                      alt="image-20231204164701232"
+                ></p>
+<p>记住lambda_a 的定义对后面的理解有帮助</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204164338390.png"
+                      alt="image-20231204164338390"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204165336863.png"
+                      alt="image-20231204165336863"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204165359729.png"
+                      alt="image-20231204165359729"
+                ></p>
+<h4 id="8-2-2-Steady-State-Probabilities"><a href="#8-2-2-Steady-State-Probabilities" class="headerlink" title="8.2.2 Steady-State Probabilities"></a>8.2.2 Steady-State Probabilities</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204170032930.png"
+                      alt="image-20231204170032930"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204170947266.png"
+                      alt="image-20231204170947266"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204172207169.png"
+                      alt="image-20231204172207169"
+                ></p>
+<p>PASTA Principle</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231204175500462.png"
+                      alt="image-20231204175500462"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207150030838.png"
+                      alt="image-20231207150030838"
+                ></p>
+<p>​                                                                             $a_n&#x3D;\lambda P_n&#x2F;\lambda &#x3D; P_n$</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207151927602.png"
+                      alt="image-20231207151927602"
+                ></p>
+<h3 id="8-3-Exponential-Model"><a href="#8-3-Exponential-Model" class="headerlink" title="8.3 Exponential Model"></a>8.3 Exponential Model</h3><h4 id="8-3-1-A-Single-Server-Exponential-Queueing-System"><a href="#8-3-1-A-Single-Server-Exponential-Queueing-System" class="headerlink" title="8.3.1 A Single-Server Exponential Queueing System"></a>8.3.1 A Single-Server Exponential Queueing System</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160511756.png"
+                      alt="image-20231207160511756"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160539525.png"
+                      alt="image-20231207160539525"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160556904.png"
+                      alt="image-20231207160556904"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160705119.png"
+                      alt="image-20231207160705119"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207160718647.png"
+                      alt="image-20231207160718647"
+                ></p>
+<p>![微信图片_20231208145313](D:\LZL\Learning Materials\Graduate\Courses\ISYE 6650\微信图片_20231208145313.jpg)</p>
+<p>Connection with Continuous-Time Markov Chain</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207163504781.png"
+                      alt="image-20231207163504781"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207163902842.png"
+                      alt="image-20231207163902842"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207164125850.png"
+                      alt="image-20231207164125850"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207164321929.png"
+                      alt="image-20231207164321929"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207165805001.png"
+                      alt="image-20231207165805001"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207170112934.png"
+                      alt="image-20231207170112934"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207170304292.png"
+                      alt="image-20231207170304292"
+                ></p>
+<p>Easy version:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171151670.png"
+                      alt="image-20231207171151670"
+                ></p>
+<p>Book version:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171242240.png"
+                      alt="image-20231207171242240"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171253745.png"
+                      alt="image-20231207171253745"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171540865.png"
+                      alt="image-20231207171540865"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207171930077.png"
+                      alt="image-20231207171930077"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207172700807.png"
+                      alt="image-20231207172700807"
+                ></p>
+<p>![微信图片_20231208155239](D:\LZL\Learning Materials\Graduate\Courses\ISYE 6650\微信图片_20231208155239.jpg)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207194826248.png"
+                      alt="image-20231207194826248"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207200518061.png"
+                      alt="image-20231207200518061"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207201605334.png"
+                      alt="image-20231207201605334"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207210311676.png"
+                      alt="image-20231207210311676"
+                ></p>
+<p><strong>Erlang Distribution:</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202445398.png"
+                      alt="image-20231207202445398"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202734336.png"
+                      alt="image-20231207202734336"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202853502.png"
+                      alt="image-20231207202853502"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207202919247.png"
+                      alt="image-20231207202919247"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207203221336.png"
+                      alt="image-20231207203221336"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231207203820439.png"
+                      alt="image-20231207203820439"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154135159.png"
+                      alt="image-20231208154135159"
+                ></p>
+<p>Back to our discussion:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154219507.png"
+                      alt="image-20231208154219507"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154242139.png"
+                      alt="image-20231208154242139"
+                ></p>
+<p><strong>Priority</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208154553760.png"
+                      alt="image-20231208154553760"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208160936017.png"
+                      alt="image-20231208160936017"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208160954197.png"
+                      alt="image-20231208160954197"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208161007570.png"
+                      alt="image-20231208161007570"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208161756330.png"
+                      alt="image-20231208161756330"
+                ></p>
+<h4 id="M-M-1-Having-Finite-Capacity"><a href="#M-M-1-Having-Finite-Capacity" class="headerlink" title="M&#x2F;M&#x2F;1 Having Finite Capacity"></a>M&#x2F;M&#x2F;1 Having Finite Capacity</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165052804.png"
+                      alt="image-20231208165052804"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165158473.png"
+                      alt="image-20231208165158473"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165209363.png"
+                      alt="image-20231208165209363"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165230696.png"
+                      alt="image-20231208165230696"
+                ></p>
+<h4 id="M-M-1-Queueing-System-with-Balking"><a href="#M-M-1-Queueing-System-with-Balking" class="headerlink" title="M&#x2F;M&#x2F;1 Queueing System with Balking"></a>M&#x2F;M&#x2F;1 Queueing System with Balking</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208165257319.png"
+                      alt="image-20231208165257319"
+                ></p>
+<h4 id="M-M-1-Queueing-System-with-bulk-service"><a href="#M-M-1-Queueing-System-with-bulk-service" class="headerlink" title="M&#x2F;M&#x2F;1 Queueing System with bulk service"></a>M&#x2F;M&#x2F;1 Queueing System with bulk service</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208170641259.png"
+                      alt="image-20231208170641259"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208170811929.png"
+                      alt="image-20231208170811929"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171239967.png"
+                      alt="image-20231208171239967"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171458050.png"
+                      alt="image-20231208171458050"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171551869.png"
+                      alt="image-20231208171551869"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171622822.png"
+                      alt="image-20231208171622822"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208171650382.png"
+                      alt="image-20231208171650382"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208172411659.png"
+                      alt="image-20231208172411659"
+                ></p>
+<h4 id="M-M-c-Queue"><a href="#M-M-c-Queue" class="headerlink" title="M&#x2F;M&#x2F;c Queue"></a>M&#x2F;M&#x2F;c Queue</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208172918608.png"
+                      alt="image-20231208172918608"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208173755979.png"
+                      alt="image-20231208173755979"
+                ></p>
+<h4 id="M-G-1"><a href="#M-G-1" class="headerlink" title="M&#x2F;G&#x2F;1"></a>M&#x2F;G&#x2F;1</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208173953225.png"
+                      alt="image-20231208173953225"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208174017784.png"
+                      alt="image-20231208174017784"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208185104478.png"
+                      alt="image-20231208185104478"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190849079.png"
+                      alt="image-20231208190849079"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190900563.png"
+                      alt="image-20231208190900563"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208190911033.png"
+                      alt="image-20231208190911033"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208191031039.png"
+                      alt="image-20231208191031039"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208191952811.png"
+                      alt="image-20231208191952811"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208192013094.png"
+                      alt="image-20231208192013094"
+                ></p>
+<h4 id="G-M-1"><a href="#G-M-1" class="headerlink" title="G&#x2F;M&#x2F;1"></a>G&#x2F;M&#x2F;1</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208194000049.png"
+                      alt="image-20231208194000049"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208195115854.png"
+                      alt="image-20231208195115854"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231208195128640.png"
+                      alt="image-20231208195128640"
+                ></p>
+<h2 id="Handwrite-Note"><a href="#Handwrite-Note" class="headerlink" title="Handwrite Note"></a>Handwrite Note</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231211134022553.png"
+                      alt="image-20231211134022553"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231211134050452.png"
+                      alt="image-20231211134050452"
+                ></p>
+<h2 id="Inspiring"><a href="#Inspiring" class="headerlink" title="Inspiring"></a>Inspiring</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209151603799.png"
+                      alt="image-20231209151603799"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209151835845.png"
+                      alt="image-20231209151835845"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209152642397.png"
+                      alt="image-20231209152642397"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209152649845.png"
+                      alt="image-20231209152649845"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\LZL\AppData\Roaming\Typora\typora-user-images\image-20231209155904013.png"
+                      alt="image-20231209155904013"
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> ISYE6650</li>
+        <li><strong>Author:</strong> JOKER</li>
+        <li><strong>Created at
+                :</strong> 2024-01-18 21:23:39</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-01-19 18:56:46
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://zli1024.github.io/2024/01/18/ReviewNotes/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                All Rights Reserved &#169; JOKER
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Queueing-theory/">#Queueing theory</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Markov-chain/">#Markov chain</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Probabilistic-models/">#Probabilistic models</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="prev"
+                        rel="prev"
+                        href="/2024/01/19/CNN-Summary/"
+                        >
+                            <span class="left arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">CNN-Summary</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2024/01/18/hello-world/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">ISYE6650</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Probabilistic-Models"><span class="nav-text">Probabilistic Models</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-4-Discrete-time-Markov-Chains-Review"><span class="nav-text">Lecture 4 Discrete-time Markov Chains Review</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Defining-Markov-Chain"><span class="nav-text">1 Defining Markov Chain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-n-step-Transition-Probabilities"><span class="nav-text">2 n-step Transition Probabilities</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Classification-of-States"><span class="nav-text">3 Classification of States</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Stationary-Distribution-of-MC"><span class="nav-text">4 Stationary Distribution of MC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Mean-time-spent-in-transient-states"><span class="nav-text">5 Mean time spent in transient states</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-5-The-Exponential-Distribution-and-the-Poisson-Process"><span class="nav-text">Lecture 5 The Exponential Distribution and the Poisson Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lecture-6-Queueing-Theory"><span class="nav-text">Lecture 6 Queueing Theory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-Exponential-Model"><span class="nav-text">8.3 Exponential Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handwrite-Note"><span class="nav-text">Handwrite Note</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inspiring"><span class="nav-text">Inspiring</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 1.0s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">JOKER</a>
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.0</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
