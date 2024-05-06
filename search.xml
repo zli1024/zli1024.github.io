@@ -539,7 +539,7 @@
     <title>Camera Noise Calibration</title>
     <url>/2024/05/06/Camera%20Noise%20Calibration/</url>
     <content><![CDATA[<blockquote>
-<p>Source code is published in <a class="link" href="https://github.com/zli1024/Noise-calibration">https://github.com/zli1024/Noise-calibration <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
+<p>Source code is published on <a class="link" href="https://github.com/zli1024/Noise-calibration">https://github.com/zli1024/Noise-calibration <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>.</p>
 </blockquote>
 <h2 id="Part-1-Sensitivity-Linearity-and-Noise"><a href="#Part-1-Sensitivity-Linearity-and-Noise" class="headerlink" title="Part 1: Sensitivity, Linearity, and Noise"></a>Part 1: Sensitivity, Linearity, and Noise</h2><h3 id="Pixel-Exposure-and-Linear-Signal-Model"><a href="#Pixel-Exposure-and-Linear-Signal-Model" class="headerlink" title="Pixel Exposure and Linear Signal Model"></a>Pixel Exposure and Linear Signal Model</h3><p>First of all, we need to understand the whole process of noise generation and try to build up a physical noise model in order to proceed our noise calibration. The figure below(from EMVA1288) shows us a general physical model of the camera.</p>
 <p>![noise model](../images/noise model.png)</p>
