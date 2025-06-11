@@ -199,11 +199,12 @@
 <p><strong>具体实现代码：</strong>在文件noise_img.py中可以直观地看每一步实现的细节</p>
 ]]></content>
       <categories>
-        <category>Computational Photography</category>
+        <category>Projects</category>
       </categories>
       <tags>
         <tag>Noise Calibration</tag>
         <tag>Camera</tag>
+        <tag>Computational Photography</tag>
       </tags>
   </entry>
 </search>
