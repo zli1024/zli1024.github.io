@@ -6,15 +6,8 @@
     <description>Recent content in Posts on Zhilin&#39;s Blog</description>
     <generator>Hugo -- 0.148.1</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Jun 2025 13:55:13 +0000</lastBuildDate>
     <atom:link href="https://zli1024.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>test</title>
-      <link>https://zli1024.github.io/posts/2025/07/test/</link>
-      <pubDate>Sun, 27 Jul 2025 00:00:00 +0000</pubDate>
-      <guid>https://zli1024.github.io/posts/2025/07/test/</guid>
-      <description>&lt;p&gt;testtesting&amp;hellip;..&lt;/p&gt;</description>
-    </item>
     <item>
       <title>近轴光路的光线追迹</title>
       <link>https://zli1024.github.io/posts/ray-tracing/</link>
