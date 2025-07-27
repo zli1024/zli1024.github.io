@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Computational on Zhilin&#39;s Blog</title>
+    <link>https://zli1024.github.io/tags/computational/</link>
+    <description>Recent content in Computational on Zhilin&#39;s Blog</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Jun 2025 10:54:33 +0000</lastBuildDate>
+    <atom:link href="https://zli1024.github.io/tags/computational/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>相机噪声标定</title>
+      <link>https://zli1024.github.io/posts/%E7%9B%B8%E6%9C%BA%E5%99%AA%E5%A3%B0%E6%A0%87%E5%AE%9A/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/posts/%E7%9B%B8%E6%9C%BA%E5%99%AA%E5%A3%B0%E6%A0%87%E5%AE%9A/</guid>
+      <description>&lt;h1 id=&#34;相机噪声标定流程&#34;&gt;相机噪声标定流程&lt;/h1&gt;
+&lt;h2 id=&#34;第一部分emva1288-相机的线性模型及噪声&#34;&gt;第一部分：EMVA1288 相机的线性模型及噪声&lt;/h2&gt;
+&lt;h3 id=&#34;像素曝光与相机的线性信号模型&#34;&gt;像素曝光与相机的线性信号模型&lt;/h3&gt;
+&lt;p&gt;首先，我们需要了解噪声生成的整个过程，并尝试建立一个物理噪声模型，以便进行噪声标定。下图（来自EMVA1288）给我们展示了一个相机的通用物理模型。&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506112302533.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;所谓的EMVA1288标准，是欧洲机器视觉委员会专门编写的关于数字图像传感器以及相机特性的量化评估标准。该标准历史悠久，我们现在采用的是最新的4.0版本，4.0版本分为了线性版和非线性版，其中线性版本就是针对我们日常使用的数码相机、手机、单反这样常规的相机数字图像传感器，而非线性版本则是指那些不符合线性曝光过程的相机。所以本文所指的EMVA1288主要是针对线性版来展开讲解。&lt;/p&gt;
+&lt;p&gt;从EMVA1288中我们知道，在整个相机电子系统中，由光照累积的电荷单位被转换为电压，经过放大，最终通过模数转换器（ADC）转换为数字信号$y$。而这整个过程可以看作是线性的，并且可以用具体的量来描述，如系统增益$K$（单位为$DN/e^{-}$，这里$DN$为Digital Number的缩写）等等。所以关于上图中的数字量$\mu_y$（平均像素值）可以建立如下公式：
+&lt;/p&gt;
+$$
+\mu_y = K(\mu_e + \mu_d) \quad or \quad \mu_y = \mu_{y \cdot dark} + K\mu_e  \qquad (1)
+$$&lt;p&gt;
+而平均光子数$\mu_p=\frac{AEt_{exp}}{h\nu}=\frac{AEt_{exp}}{hc/\lambda}$，其中$A$为传感器面积，$E$是传感器表面在曝光时间$t_{exp}$ 内的光照度，单位为$W/m^2$，而平均电子数$\mu_e=\eta \mu_p$​，因此上述方程(1)可以转换为以下方程：
+&lt;/p&gt;
+$$
+\mu_y = \mu_{y\cdot dark} + K\eta \mu_p = \mu_{y\cdot dark} + K\eta\frac{\lambda A}{hc}Et_{exp}  \qquad (2)
+$$&lt;h3 id=&#34;噪声模型&#34;&gt;噪声模型&lt;/h3&gt;
+&lt;p&gt;散粒噪声（Shot noise）是&lt;strong&gt;泊松分布&lt;/strong&gt;的，因此有$\sigma_{e}^2=\mu_e$；根据上图噪声生成模型所示，所有与传感器读出和放大电路相关的噪声源都可以用一个方差为 $\sigma_d^2$ 的与信号无关的&lt;strong&gt;正态分布&lt;/strong&gt;噪声源来描述。最终的模数转换会在量化区间之间添加另一个&lt;strong&gt;均匀分布&lt;/strong&gt;的噪声源，其方差为 $\sigma_q^2=1/12DN^2$。由于所有噪声源的方差线性相加，根据误差的传播规则，数字信号$y$ 的总时域方差(temporal variance)$\sigma_y^2$ 可以表示为：
+&lt;/p&gt;
+$$
+\sigma_y^2 = K^2(\sigma_d^2 + \sigma_e^2) + \sigma_q^2 \qquad (3)
+$$&lt;p&gt;
+噪声可以与测量的平均数字信号相关联（利用公式(1)以及$\sigma_{e}^2=\mu_e$​）：
+&lt;/p&gt;
+$$
+\begin{matrix} \sigma_y^2 = \underbrace{K^2\sigma_d^2 + \sigma_q^2} \qquad \\offset    \end{matrix}
+\begin{matrix}+\underbrace{K}(\mu_y-\mu_{y\cdot dark})\\slope \qquad \quad \qquad\end{matrix}  \qquad(4)
+$$&lt;p&gt;
+&lt;strong&gt;这个方程是传感器特性表征的核心，根据噪声方差$\sigma_y^2$ 与光诱导数字信号均值$\mu_y - \mu_{y\cdot dark}$ 之间的线性关系，可以由斜率确定整体系统增益$K$，并从偏移量确定暗噪声方差$\sigma_d^2$ ，这种方法被称为光子转移方法（Photon Transfer Method）。&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

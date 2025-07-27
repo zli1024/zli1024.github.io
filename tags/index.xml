@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Zhilin&#39;s Blog</title>
+    <link>https://zli1024.github.io/tags/</link>
+    <description>Recent content in Tags on Zhilin&#39;s Blog</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Jun 2025 13:55:13 +0000</lastBuildDate>
+    <atom:link href="https://zli1024.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Optics</title>
+      <link>https://zli1024.github.io/tags/optics/</link>
+      <pubDate>Fri, 13 Jun 2025 13:55:13 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/optics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Calibration</title>
+      <link>https://zli1024.github.io/tags/calibration/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/calibration/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Camera</title>
+      <link>https://zli1024.github.io/tags/camera/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/camera/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Computational</title>
+      <link>https://zli1024.github.io/tags/computational/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/computational/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Convex Optimization</title>
+      <link>https://zli1024.github.io/tags/convex-optimization/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/convex-optimization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Noise</title>
+      <link>https://zli1024.github.io/tags/noise/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/noise/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Photography</title>
+      <link>https://zli1024.github.io/tags/photography/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/tags/photography/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

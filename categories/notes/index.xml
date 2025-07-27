@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Notes on Zhilin&#39;s Blog</title>
+    <link>https://zli1024.github.io/categories/notes/</link>
+    <description>Recent content in Notes on Zhilin&#39;s Blog</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Jun 2025 13:55:13 +0000</lastBuildDate>
+    <atom:link href="https://zli1024.github.io/categories/notes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>近轴光路的光线追迹</title>
+      <link>https://zli1024.github.io/posts/ray-tracing/</link>
+      <pubDate>Fri, 13 Jun 2025 13:55:13 +0000</pubDate>
+      <guid>https://zli1024.github.io/posts/ray-tracing/</guid>
+      <description>&lt;h2 id=&#34;实际光学系统的基点位置和焦距的计算&#34;&gt;实际光学系统的基点位置和焦距的计算&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;在学习《工程光学》第4版第二章第二节时，想对比下近轴光路光线追迹的常规计算公式和矩阵方法有何区别，于是动手实际算了下。&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由前知，共轴球面系统的近轴区就是实际的理想光学系统，在实际系统的近轴区追迹平行于光轴的光线，就可以计算出实际系统近轴区的基点位置和焦距，通常实际系统就以此作为它的基点和焦距。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;下面以如图2-12所示的三片型照相物镜为例描述具体的计算过程和计算结果。&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506131417544.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-近轴光路计算公式逐面计算&#34;&gt;1. 近轴光路计算公式（逐面计算）&lt;/h3&gt;
+&lt;p&gt;所用公式如下：
+&lt;/p&gt;
+$$
+\begin{aligned}
+i &amp;= \frac{l-r}{r}u \\
+i^{\prime} &amp;= \frac{n}{n^{\prime}}i \\
+u^{\prime} &amp;= u + i - i^{\prime} \\
+l^{\prime} &amp;= r(1+\frac{i^{\prime}}{u^{\prime}})
+\end{aligned}
+$$&lt;p&gt;
+第一面：
+&lt;/p&gt;
+$$
+\begin{aligned}
+i_2 &amp;= \frac{n_1}{n_2}i_1 \\
+    &amp;= \frac{1}{1.6140}\cdot \frac{10}{26.67} = 0.2323 \\
+u_2 &amp;= u_1 + i_1 -i_2 = \frac{10}{26.67} - 0.2323 = 0.1427 \\
+l_2 &amp;= r_1(1+\frac{i_2}{u_2}) = 26.67\times(1+\frac{0.2323}{0.1427})=70.0858
+\end{aligned}
+$$&lt;p&gt;
+第二面：
+&lt;/p&gt;
+$$
+\begin{aligned}
+i_3 &amp;= \frac{l_2 - d_1 - r_2}{r_2}\times u_2 \\
+    &amp;= \frac{70.0858 - 5.20 - 189.67}{189.67}\times 0.1427 = -0.0939 \\
+i_4 &amp;= \frac{n_2}{n_3}i_3 = \frac{1.6140}{1}\cdot (-0.0939) = -0.1516 \\
+u_3 &amp;= u_2 + i_3 - i_4 = 0.1427 + (-0.0939) + 0.1516 = 0.2004 \\
+l_3 &amp;= r_2(1+\frac{i_4}{u_3}) = 189.67\times (1+\frac{-0.1516}{0.2004}) = 46.1871
+\end{aligned}
+$$&lt;p&gt;
+第三面：
+&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

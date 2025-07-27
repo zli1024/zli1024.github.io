@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CMU 10-725 HW2 | Zhilin&#39;s Blog</title>
+<meta name="keywords" content="Convex Optimization">
+<meta name="description" content="Homework 2 CVX-OPT 10-725
+1 Subgradients and Proximal Operators
+
+(i)
+Let $g_1, g_2 \in \partial f(x)$ , therefore we have:
+
+$$
+\begin{aligned}
+f(y) &\ge f(x) &#43; g_1^\top (y-x) \\
+f(y) &\ge f(x) &#43; g_2^\top (y-x) \\
+tf(y) &\ge tf(x) &#43; tg_1^\top (y-x) \qquad \qquad \qquad(1)\\
+(1-t)f(y) &\ge (1-t)f(x) &#43; (1-t)g_2^\top (y-x) \quad (2)\\
+\end{aligned}
+$$
+(1)&#43;(2):
+
+$$
+f(y) \ge f(x) &#43; [tg_1&#43;(1-t)g_2]^\top(y-x)
+$$
+Thus, $g=tg_1&#43;(1-t)g_2 \in \partial f$ and the subdifferential $\partial f(x)$ is a convex set.">
+<meta name="author" content="">
+<link rel="canonical" href="https://zli1024.github.io/posts/cmu10_725_hw2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b9bcbccf6ce8b8eff7bfb38d9eeaddd5afcd7224bc1632975b7be62322082868.css" integrity="sha256-uby8z2zouO/3v7ONnurd1a/NciS8FjKXW3vmIyIIKGg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zli1024.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zli1024.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zli1024.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zli1024.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zli1024.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://zli1024.github.io/posts/cmu10_725_hw2/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)'], ['$', '$']]      
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+<meta property="og:url" content="https://zli1024.github.io/posts/cmu10_725_hw2/">
+  <meta property="og:site_name" content="Zhilin&#39;s Blog">
+  <meta property="og:title" content="CMU 10-725 HW2">
+  <meta property="og:description" content="Homework 2 CVX-OPT 10-725 1 Subgradients and Proximal Operators (i)
+Let $g_1, g_2 \in \partial f(x)$ , therefore we have: $$ \begin{aligned} f(y) &amp;\ge f(x) &#43; g_1^\top (y-x) \\ f(y) &amp;\ge f(x) &#43; g_2^\top (y-x) \\ tf(y) &amp;\ge tf(x) &#43; tg_1^\top (y-x) \qquad \qquad \qquad(1)\\ (1-t)f(y) &amp;\ge (1-t)f(x) &#43; (1-t)g_2^\top (y-x) \quad (2)\\ \end{aligned} $$ (1)&#43;(2): $$ f(y) \ge f(x) &#43; [tg_1&#43;(1-t)g_2]^\top(y-x) $$ Thus, $g=tg_1&#43;(1-t)g_2 \in \partial f$ and the subdifferential $\partial f(x)$ is a convex set.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-11T10:54:33+00:00">
+    <meta property="article:modified_time" content="2025-06-11T10:54:33+00:00">
+    <meta property="article:tag" content="Convex Optimization">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CMU 10-725 HW2">
+<meta name="twitter:description" content="Homework 2 CVX-OPT 10-725
+1 Subgradients and Proximal Operators
+
+(i)
+Let $g_1, g_2 \in \partial f(x)$ , therefore we have:
+
+$$
+\begin{aligned}
+f(y) &\ge f(x) &#43; g_1^\top (y-x) \\
+f(y) &\ge f(x) &#43; g_2^\top (y-x) \\
+tf(y) &\ge tf(x) &#43; tg_1^\top (y-x) \qquad \qquad \qquad(1)\\
+(1-t)f(y) &\ge (1-t)f(x) &#43; (1-t)g_2^\top (y-x) \quad (2)\\
+\end{aligned}
+$$
+(1)&#43;(2):
+
+$$
+f(y) \ge f(x) &#43; [tg_1&#43;(1-t)g_2]^\top(y-x)
+$$
+Thus, $g=tg_1&#43;(1-t)g_2 \in \partial f$ and the subdifferential $\partial f(x)$ is a convex set.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://zli1024.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "CMU 10-725 HW2",
+      "item": "https://zli1024.github.io/posts/cmu10_725_hw2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CMU 10-725 HW2",
+  "name": "CMU 10-725 HW2",
+  "description": "Homework 2 CVX-OPT 10-725 1 Subgradients and Proximal Operators (i)\nLet $g_1, g_2 \\in \\partial f(x)$ , therefore we have: $$ \\begin{aligned} f(y) \u0026\\ge f(x) + g_1^\\top (y-x) \\\\ f(y) \u0026\\ge f(x) + g_2^\\top (y-x) \\\\ tf(y) \u0026\\ge tf(x) + tg_1^\\top (y-x) \\qquad \\qquad \\qquad(1)\\\\ (1-t)f(y) \u0026\\ge (1-t)f(x) + (1-t)g_2^\\top (y-x) \\quad (2)\\\\ \\end{aligned} $$ (1)+(2): $$ f(y) \\ge f(x) + [tg_1+(1-t)g_2]^\\top(y-x) $$ Thus, $g=tg_1+(1-t)g_2 \\in \\partial f$ and the subdifferential $\\partial f(x)$ is a convex set.\n",
+  "keywords": [
+    "Convex Optimization"
+  ],
+  "articleBody": "Homework 2 CVX-OPT 10-725 1 Subgradients and Proximal Operators (i)\nLet $g_1, g_2 \\in \\partial f(x)$ , therefore we have: $$ \\begin{aligned} f(y) \u0026\\ge f(x) + g_1^\\top (y-x) \\\\ f(y) \u0026\\ge f(x) + g_2^\\top (y-x) \\\\ tf(y) \u0026\\ge tf(x) + tg_1^\\top (y-x) \\qquad \\qquad \\qquad(1)\\\\ (1-t)f(y) \u0026\\ge (1-t)f(x) + (1-t)g_2^\\top (y-x) \\quad (2)\\\\ \\end{aligned} $$ (1)+(2): $$ f(y) \\ge f(x) + [tg_1+(1-t)g_2]^\\top(y-x) $$ Thus, $g=tg_1+(1-t)g_2 \\in \\partial f$ and the subdifferential $\\partial f(x)$ is a convex set.\n(ii)\nRecall that:\nThe normal cone of a set $C$ at a boundary point $x_0$ is the set of all vectors $y$ such that $y^\\top (x-x_0) \\le 0$ for all $x \\in C$ (i.e., the set of vectors that define a supporting hyperplane to $C$ at $x_0$)\nProve: $$ \\partial f(x) \\in N_C(x), \\quad where \\ C=\\{ y: f(y) \\le f(x) \\} $$ Let $y_0$ be the boundary point, thus $f(y_0) = f(x_0), \\ y_0 = x_0 $ and $C=\\{y: f(y)\\le f(x_0) \\}$,\nWe need to prove: $$ \\partial f(x_0)^\\top (y - y_0) \\le 0 $$ for all $y \\in C$.\nWe know that $\\partial f(x_0) = \\{g\\in \\mathbb{R}^n: f(y)\\ge f(x_0)+g^\\top(y-x_0) \\}$, thus: $$ \\begin{aligned} f(y) - f(x_0) \u0026\\ge g^\\top(y-x_0) \\\\ f(y) - f(y_0) \u0026\\ge g^\\top(y-y_0) \\\\ \\end{aligned} $$ And $f(y) - f(y_0) \\le 0$ , so $0 \\ge f(y) - f(y_0) \\ge g^\\top(y-y_0)$ . Thus, $\\partial f(x_0)^\\top (y - y_0) \\le 0$\n(iii)\nLet $z = \\frac{y}{||y||_q}, ||z||_q = 1$. $$ \\begin{aligned} z^\\top x = \\frac{y^\\top x}{||y||_q} \u0026\\le ||x||_p \\\\ y^\\top x \u0026\\le ||x||_p ||y||_q \\end{aligned} $$ (iv)\nWe need to prove: $$ ||y||_p \\ge ||x||_p + g^\\top (y-x), \\quad where \\ g \\in \\partial f(x) $$ Let $z^{*} = argmax_{||z||_q\\le 1} z^\\top x$, therefore, $z^{*\\top} x = ||x||_p$\nThus: $$ ||x||_p + z^{*\\top}(y-x) = ||x||_p + z^{*\\top}y - z^{*\\top}x = z^{*\\top}y \\le ||y||_p $$ Therefore, $z^{*}\\in \\partial f(x)$\n(i) $$ \\begin{aligned} \u0026 \\textbf{prox}_{h,t}(x) = \\mathop{\\arg\\min}_{z} \\ \\frac{1}{2}||z-x||_2^2 + t(\\frac{1}{2}z^\\top Az+b^\\top z+c) \\\\ \\therefore \u0026 \\ \\ (z-x) + t(Az+b) = 0 \\\\ \\therefore \u0026 \\ \\ z^{+} = \\textbf{prox}_{h,t}(x) = (I+tA)^{-1}(x-tb) \\end{aligned} $$ Note that $A\\in \\mathbb{S}_{+}^n$ , and therefore $\\textbf{det}(I+tA) \u003e 0$ $(I+tA)$ is invertible.\n(ii)\nLambert W function: the inverse of the fuction $f(x)=xe^x$; That is, the W function satisfies: $W(x)e^{W(x)} = x$\nThe graph of y = W(x) for real x \u003c 6 and y \u003e −4. The upper branch (blue) with y ≥ −1 is the graph of the function $W_0$ (principal branch), the lower branch (magenta) with y ≤ −1 is the graph of the function $W_{-1}$. The minimum value of x is at {−1/e, −1}\n$$ \\begin{aligned} \u0026\\textbf{prox}_{h,t}(x) = \\mathop{\\arg\\min}_{z}\\frac{1}{2}||z-x||_2^2 + t\\sum_{i=1}^{n}z_i \\log z_i \\\\ \u0026z_i - x_i + t(\\log z_i + 1) = 0 \\\\ \u0026z_i + t\\log z_i = x_i - t \\\\ \u0026\\exp(\\frac{z_i+t\\log z_i}{t}) = \\exp(\\frac{x_i - t}{t}) \\\\ \u0026\\exp(\\frac{z_i}{t})\\exp(\\log z_i) = \\exp(\\frac{x_i - t}{t}) \\\\ \u0026z_i\\exp(\\frac{z_i}{t}) = \\exp(\\frac{x_i - t}{t}) \\\\ \u0026\\frac{z_i}{t}\\exp(\\frac{z_i}{t}) = \\frac{1}{t}\\exp(\\frac{x_i - t}{t}) \\\\ \u0026\\frac{z_i}{t} = W(\\frac{z_i}{t}\\exp(\\frac{z_i}{t})) = W(\\frac{1}{t}\\exp(\\frac{x_i - t}{t})) \\\\ \u0026\\therefore z_i = t W(\\frac{1}{t}\\exp(\\frac{x_i - t}{t})) \\end{aligned} $$(iii)\nTake gradient $\\Longrightarrow 0$ $$ \\begin{aligned} \u0026 (z-x) + t\\frac{z}{||z||_{2}} = 0 \\\\ \u0026 (1+\\frac{t}{||z||_2})z = x \\qquad (1)\\\\ \u0026 ||(1+\\frac{t}{||z||_2})z||_2 = ||x||_2 \\\\ \u0026 (1+\\frac{t}{||z||_2})||z||_2 = ||x||_2 \\\\ \u0026 \\Longrightarrow ||z||_2 = ||x||_2 - t \\qquad (2) \\\\ \u0026 (2) \\rightarrow (1): z = (1-\\frac{t}{||x||_2})x \\end{aligned} $$ (iv)\nTake $i$-th variable, the objective function is: $$ f(x_i) = \\frac{1}{2}(z_i - x_i)^2 + t \\cdot \\textbf{1}_{z_i\\ne 0} $$$$ \\begin{aligned} ① \\ z_i = 0:\u0026 \\\\ \u0026 f(x_i) = \\frac{1}{2}x_i^2 \\\\ ② \\ z_i \\ne 0:\u0026 \\\\ \u0026 \\mathop{\\text{min}}_{z_i} f(x_i) = \\frac{1}{2}(x_i - x_i)^2 + t = t \\\\ \\\\ \\Longrightarrow z_i \u0026= \\begin{cases} x_i, \\quad |x_i| \u003e \\sqrt{2t} \\\\ 0, \\quad |x_i| \\le \\sqrt{2t} \\end{cases} \\end{aligned} $$ (Bonus) – 待解决\nProximal Operator for the sorted $l_1$ norm\n贴上Chatgpt的回答：\n2 Properties of Proximal Mappings and Subgradients $$ \\begin{aligned} \\text{Prove:}\\qquad\u0026 \\\\ \u0026\\text{If} \\quad v \\in \\text{conv}\\bigg( \\bigcup_{i\\in I(x)} \\partial f_i(x) \\bigg), \\ \\text{then} \\ \\ v \\in \\partial f(x) \\end{aligned} $$ where $I(x):= \\{i: f_i(x)=f(x) \\}$\nProof:\nLet $v = \\sum_i \\lambda_i g_i$ , where $i\\in I(x)$, $g_i \\in \\partial f_i(x)$, $\\lambda_i \\ge 0$, $\\sum_i \\lambda_i = 1$. For a random point $x$: $$ \\begin{aligned} f_i(y) \u0026\\ge f_i(x) + g_i^{T}(y-x) \\\\ \\lambda_i f_i(y) \u0026\\ge \\lambda_i f_i(x) + \\lambda_i g_i^{T}(y-x) \\\\ \\sum_i \\lambda_i f_i(y) \u0026\\ge \\sum_i \\lambda_i f_i(x) + \\sum_i \\lambda_i g_i^{T}(y-x) \\\\ f(y)\\sum_i \\lambda_i \\ge \\sum_i \\lambda_i f_i(y) \u0026\\ge \\sum_i \\lambda_i f_i(x) + \\sum_i \\lambda_i g_i^{T}(y-x) = f(x)\\sum_i \\lambda_i + v^{T}(y-x) \\\\ \\therefore f(y) \u0026\\ge f(x) + v^{T}(y-x) \\\\ \\therefore v \u0026\\in \\partial f(x) \\end{aligned} $$ Proof: $$ prox_t (x) = \\mathop{\\arg\\min}_u \\frac{1}{2t}||u-x||_2^2 + h(u) = \\mathop{\\arg\\min}_u f(u) $$ According to the subgradient optimality condition: $$ \\begin{aligned} \\partial f(u) \\in 0\u0026 \\\\ \\partial (\\frac{1}{2t}||u-x||_2^2 + h(u)) \\in 0\u0026 \\\\ \\frac{1}{t}(u-x) + \\partial h(u) \\in 0\u0026 \\\\ \\partial h(u) \\in \\frac{1}{t}(x-u)\u0026 \\\\ \\Longrightarrow h(y) \\ge h(u) + g^{T}(y-u) \\\\ \\Longrightarrow h(y) \\ge h(u) + \\frac{1}{t}(x-u)^{T}(y-u), \\ \\forall y \\end{aligned} $$ $$ \\begin{aligned} \\text{prox}_f(x) \u0026= \\mathop{\\arg\\min}_u \\frac{1}{2} ||u-x||_2^2 + f(u) \\\\ \u0026= \\mathop{\\arg\\min}_u \\frac{1}{2} ||u-x||_2^2 + g(Au+b) \\\\ \\end{aligned} $$ $$ \\begin{aligned} \\min_u \\frac{1}{2}||u-x||_2^2 \u0026+ g(Au+b) \\\\ \u0026\\Downarrow \\\\ \\min_u \\frac{1}{2}||u-x||_2^2 \u0026+ g(z) \\\\ s.t. \\ \\ z = Au \u0026+ b \\\\ \\end{aligned} $$ $$ \\mathcal{L}(u,z;\\lambda) = \\frac{1}{2}||u-x||_2^2 + g(z) + \\lambda^{T}(z-Au-b) $$ $$ \\begin{cases} \\partial_u \\mathcal{L} = (u-x) - A^{T}\\lambda = 0 \\qquad (1)\\\\ \\partial_z \\mathcal{L} = \\partial g(z) + \\lambda = 0 \\ \\qquad \\qquad (2)\\\\ \\partial_{\\lambda} \\mathcal{L} = z - Au - b = 0 \\ \\ \\quad \\qquad (3) \\end{cases} $$ Plug $(1)$ into $(2)$: $$ \\begin{aligned} z \u0026= Au + b \\\\ \u0026= A(x+A^T\\lambda) + b \\\\ \u0026= Ax + AA^T\\lambda + b \\\\ \u0026= Ax + a\\lambda + b \\qquad (4) \\end{aligned} $$ Plug $(4)$ into $(1)$: $$ \\begin{aligned} u \u0026= x + A^T\\lambda \\\\ \u0026= x + \\frac{1}{a}A^T(z - Ax - b) \\end{aligned} $$ Why? $z = \\text{prox}_{ag}(Ax+b)$\nLHS: $$ \\begin{aligned} u^{+} = \\text{prox}_{f+g} (x) \u0026= \\mathop{\\arg\\min}_u \\ \\frac{1}{2}||u-x||_2^2 + f(u) + g(u) \\\\ \u0026\\Downarrow \\\\ \\partial (\\frac{1}{2}\u0026||u-x||_2^2 + f(u) + g(u)) = 0 \\\\ u \u0026- x + \\partial f(u) + \\partial g(u) = 0 \\end{aligned} $$ RHS: Let $y \\in \\text{dom}(g)$ , $$ \\begin{aligned} y^{+} \u0026= \\text{prox}_g(x) = \\mathop{\\arg\\min}_y \\frac{1}{2}||y-x||_2^2 + g(y) \\\\ \u0026\\Downarrow \\\\ y \u0026- x + \\partial g(y) \\in 0, \\quad \\partial g(y) \\in x - y \\end{aligned} $$ $$ \\begin{aligned} u^{+} \u0026= \\text{prox}_f(\\text{prox}_g(x)) = \\text{prox}_f(y) = \\mathop{\\arg\\min}_u \\ \\frac{1}{2} ||u - y||_2^2 + f(u) \\\\ \u0026\\Downarrow \\\\ \u0026 u - y + \\partial f(u) \\in 0 \\\\ \\end{aligned} $$ Because $\\forall y \\in \\text{dom}(g)$, $\\partial g (\\text{prox}_f (y)) \\supseteq \\partial g(y)$ , $$ \\begin{aligned} \u0026\\therefore \\partial g(\\text{prox}_f (y)) = \\partial g(u) \\in x - y \\\\ \\\\ \u0026\\begin{cases} y - x + \\partial g(u) \\in 0 \\\\ u - y + \\partial f(u) \\in 0 \\end{cases} \\\\ \u0026\\therefore u - x+ \\partial g(u) + \\partial f(u) \\in 0 \\end{aligned} $$3 Convergence Rate for Proximal Gradient Descent $$ \\begin{aligned} g(x^+) \u0026\\le g(x) + \\nabla g(x)^T (-\\frac{1}{L}\\nabla g(x)) + \\frac{L}{2}||-\\frac{1}{L}\\nabla g(x)||_2^2 \\\\ \u0026=g(x) - \\frac{1}{L}||\\nabla g(x)||_2^2 + \\frac{1}{2L}||\\nabla g(x)||_2^2 \\\\ \u0026=g(x) - \\frac{1}{2L}||\\nabla g(x)||_2^2 \\\\ \\therefore \\ \\ \u0026 g(x^+) - g(x) \\le - \\frac{1}{2L}||\\nabla g(x)||_2^2 \\end{aligned} $$ $$ \\begin{aligned} g(z) \u0026\\ge g(x) + \\nabla g(x)^T(z-x) \\\\ g(x) - g(z) \u0026\\le \\nabla g(x)^T (x - z) \\end{aligned} $$ Plug into the inequality of $(i)$ : $$ g(x^+) - g(z) \\le \\nabla g(x)^T(x - z) - \\frac{1}{2L}||\\nabla g(x)||_2^2 $$ From $(ii)$: $$ g(x^+) - g(x^*) \\le \\nabla g(x)^T(x-x^*) - \\frac{1}{2L}||\\nabla g(x)||_2^2 $$ $$ g(x^+) - g(x^*) \\le \\frac{L}{2}\\bigg(\\frac{2}{L} \\nabla g(x)^T(x-x^*) - \\frac{1}{L^2}||\\nabla g(x)||_2^2 \\bigg) $$ $$ g(x^+) - g(x^*) \\le \\frac{L}{2}\\bigg(2t \\nabla g(x)^T(x-x^*) - t^2 ||\\nabla g(x)||_2^2 \\bigg) $$ $$ g(x^+) - g(x^*) \\le \\frac{L}{2}\\bigg( ||x||^2 -2x^Tx^* - ||x||^2 - t^2||\\nabla g(x)||^2 + 2t \\nabla g(x)^Tx + 2x^Tx^* -2t\\nabla g(x)^T x^* \\bigg) $$ $$ g(x^+) - g(x^*) \\le \\frac{L}{2} \\bigg( ||x||^2 - 2x^Tx^* - ||x^+||^2 + 2x^{+T}x^* \\bigg) $$ $$ g(x^+) - g(x^*) \\le \\frac{L}{2} \\bigg( ||x-x^*||^2 - ||x^+ - x^*||^2 \\bigg) $$ $$ \\begin{aligned} g(x^{(1)}) - g(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(0)}-x^*||^2 - ||x^{(1)} - x^*||^2 \\bigg) \\\\ g(x^{(2)}) - g(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(1)}-x^*||^2 - ||x^{(2)} - x^*||^2 \\bigg) \\\\ \u0026\\vdots \\\\ g(x^{(k)}) - g(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(k-1)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) \\end{aligned} $$ Sum both sides: $$ \\sum_{i=1}^k g(x^{(i)}) - k g(x^*) \\le \\frac{L}{2}\\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) $$ LHS: $$ \\sum_{i=1}^k g(x^{(i)}) - k g(x^*) \\ge k g(x^{(k)}) - kg(x^*) $$ RHS: $$ \\frac{L}{2}\\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) \\le \\frac{L}{2} ||x^{(0)}-x^*||^2 $$ Therefore: $$ g(x^{(k)}) - g(x^*) \\le \\frac{L}{2k} ||x^{(0)} - x^*||^2 $$ Sublinear convergence!\n$$ g(x^+) \\le g(x) + \\nabla g(x)^T (x^+ - x) + \\frac{L}{2}||x^+ - x||_2^2 $$ $$ g(x^+) - g(x) \\le \\nabla g(x)^T (x^+ - x) + \\frac{L}{2}||x^+ - x||_2^2 $$ Plug $G(x)$ into the above inequality: $$ g(x^+) - g(x) \\le -\\frac{1}{L}\\nabla g(x)^T G(x) + \\frac{1}{2L}||G(x)||^2 $$ $$ g(z) \\ge g(x) + \\nabla g(x)^T (z - x) $$ $$ g(x) - g(z) \\le \\nabla g(x)^T (x - z) $$ Plus to $(i)$: $$ \\begin{aligned} g(x^+) - g(z) \u0026\\le \\nabla g(x)^T (x - z) -\\frac{1}{L}\\nabla g(x)^T G(x) + \\frac{1}{2L}||G(x)||^2 \\\\ \\Downarrow \\\\ g(x^+) - g(z) \u0026\\le \\nabla g(x)^T (x^+ - z) + \\frac{1}{2t}||x - x^+||^2 \\qquad (1) \\end{aligned} $$ According to Q2 part (b): $$ \\begin{aligned} \u0026\\because x^+ = \\text{prox}_{th} (x - t\\nabla g(x)) \\\\ \u0026\\therefore h(z) \\ge h(x^+) + \\frac{1}{t}(x-t\\nabla g(x) - x^+)^T(z - x^+), \\ \\ \\forall z \\in \\mathbb{R}^n \\\\ \u0026\\Downarrow \\\\ \u0026\\therefore h(x^+) - h(z) \\le -\\frac{1}{t}(x-x^+)^T (z - x^+) + \\nabla g(x)^T (z-x^+) \\qquad (2) \\end{aligned} $$ (1)+(2): $$ f(x^+) - f(z) \\le G(x)^T (x^+ - z) + \\frac{1}{2L}||G(x)||^2 $$ $$ \\begin{aligned} \u0026G(x)^T (x^+ - z) + \\frac{1}{2L}||G(x)||^2 \\\\ =\u0026 (x-x^+)^T(\\frac{1}{2t}x + \\frac{1}{2t}x^+ - \\frac{1}{t}z) \\\\ =\u0026 (x-x^+)^T(\\frac{1}{t}x - \\frac{1}{2t}x + \\frac{1}{2t}x^+ - \\frac{1}{t}z) \\\\ =\u0026 (x-x^+)^T(\\frac{1}{t}(x - z) - \\frac{1}{2t}(x-x^+)) \\\\ =\u0026 G(x)^T (x-z) - \\frac{1}{2L}||G(x)||^2 \\end{aligned} $$ Therefore: $$ f(x^+) - f(z) \\le G(x)^T (x-z) - \\frac{1}{2L}||G(x)||^2 $$ According to (ii): $$ f(x^+) - f(x^*) \\le G(x)^T(x-x^*) - \\frac{1}{2L}||G(x)||^2 $$ $$ f(x^+) - f(x^*) \\le \\frac{L}{2}\\bigg( ||x||^2 - 2x^Tx^* + 2x^{+T}x^* - ||x^+||^2 \\bigg) $$ $$ f(x^+) - f(x^*) \\le \\frac{L}{2}\\bigg( ||x||^2 - 2x^Tx^* + \\textcolor{red}{||x^*||^2} - \\textcolor{red}{||x^*||^2} + 2x^{+T}x^* - ||x^+||^2 \\bigg) $$ $$ f(x^+) - f(x^*) \\le \\frac{L}{2}\\bigg( ||x-x^*||^2 - ||x^+ - x^*||^2 \\bigg) $$ Now, prove: $$ f(x^{(k)}) - f(x^*) \\le \\frac{L}{2k} ||x^{(0)} - x^*||^2 $$ $$ \\begin{aligned} f(x^{(1)}) - f(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(0)}-x^*||^2 - ||x^{(1)} - x^*||^2 \\bigg) \\\\ f(x^{(2)}) - f(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(1)}-x^*||^2 - ||x^{(2)} - x^*||^2 \\bigg) \\\\ \u0026\\vdots \\\\ f(x^{(k)}) - f(x^*) \u0026\\le \\frac{L}{2} \\bigg( ||x^{(k-1)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) \\end{aligned} $$ Sum both sides: $$ \\sum_{i=1}^k f(x^{(i)}) - k f(x^*) \\le \\frac{L}{2}\\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) $$ LHS: $$ \\sum_{i=1}^k f(x^{(i)}) - k f(x^*) \\ge k f(x^{(k)}) - kf(x^*) $$ RHS: $$ \\frac{L}{2}\\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \\bigg) \\le \\frac{L}{2} ||x^{(0)}-x^*||^2 $$ Therefore: $$ f(x^{(k)}) - f(x^*) \\le \\frac{L}{2k} ||x^{(0)} - x^*||^2 $$\nProof: According to the note, $$ \\begin{aligned} x^+ \u0026= \\text{prox}_{t,h}(x-t\\nabla g(x)) = \\mathop{\\arg\\min}_y \\frac{1}{2t}||y-(x-t\\nabla g(x))||_2^2 + h(y) \\\\ \u0026= \\mathop{\\arg\\min}_y \\frac{1}{2t}\\bigg( \\textcolor{green}{||y||^2} - \\textcolor{green}{2y^Tx} + \\textcolor{red}{2t\\nabla g(x)^T y} + \\textcolor{green}{||x||^2} + t^2||\\nabla g(x)||^2 - \\textcolor{red}{2t\\nabla g(x)^T x}\\bigg) + h(y) \\\\ \u0026= \\mathop{\\arg\\min}_y \\frac{1}{2t}\\bigg( \\textcolor{red}{2t\\nabla g(x)^T(y-x)} + \\textcolor{green}{||y-x||^2} \\bigg) + h(y) \\\\ \u0026= \\mathop{\\arg\\min}_y \\nabla g(x)^T(y-x) + \\frac{L}{2}||y-x||^2 + h(y) \\end{aligned} $$ Therefore $\\phi (x; \\lambda)$ is related to the minimum objective value in the proximal operators.\nPart 1: $$ \\begin{aligned} \u0026g(x^+) \\le g(x) + \\nabla g(x)^T(x^+ - x) + \\frac{L}{2}||x^+ - x||^2 \\\\ \u0026g(x) - g(x^+) \\ge \\nabla g(x)^T(x-x^+) - \\frac{L}{2}||x^+ - x||^2 \\\\ \u0026f(x) - f(x^+) \\ge \\nabla g(x)^T(x-x^+) - \\frac{L}{2}||x^+ - x||^2 + h(x) - h(x^+) \\end{aligned} $$ We know that $$ \\begin{aligned} \u0026\\phi(x;L) = -2L (\\nabla g(x)^T(x^+ - x)+\\frac{L}{2}||x^+-x||^2 + h(x^+)) + 2Lh(x) \\\\ \u0026\\therefore \\frac{1}{2L}\\phi(x;L) = \\nabla g(x)^T(x-x^+) - \\frac{L}{2}||x^+ - x||^2 + h(x) - h(x^+) \\end{aligned} $$ Therefore: $f(x) - f(x^+) \\ge \\frac{1}{2L}\\phi (x;L)$\nPart 2: Remember $g$ is strongly convex, so: $$ \\begin{aligned} \u0026g(x^*) \\ge g(x) + \\nabla g(x)^T(x^* - x) + \\frac{m}{2}||x^* - x||_2^2 \\\\ \u0026g(x) - g(x^*) \\le \\nabla g(x)^T(x-x^*) - \\frac{m}{2}||x^*-x||_2^2 \\\\ \u0026f(x) - f(x^*) \\le \\nabla g(x)^T(x-x^*) - \\frac{m}{2}||x^*-x||_2^2 + h(x) - h(x^*) \\end{aligned} $$ $x^*$ is the optimal point, so it is not necessary to minimize the objective value in the proximal operators: $$ \\frac{1}{-2m} \\phi (x;m) \\le \\nabla g(x)^T(x^*-x) + \\frac{m}{2}||x^* - x||^2 + h(x^*) - h(x) $$ $$ \\begin{aligned} \u0026\\frac{1}{2m} \\phi (x;m) \\ge \\nabla g(x)^T(x-x^*) - \\frac{m}{2}||x^* - x||^2 + h(x) - h(x^*) \\\\ \u0026\\therefore f(x) - f(x^*) \\le \\frac{1}{2m}\\phi (x;m) \\end{aligned} $$ Because $g$ is strongly convex, so: $$ mI \\preceq \\nabla^2 g(x) \\preceq LI $$ Thus $m \\le L$, and finally: $$ \\begin{aligned} \u0026f(x) - f(x^+) \\ge \\frac{m}{L} \\bigg( f(x) - f(x^*) \\bigg) \\\\ \u0026f(x^+) - f(x^*) \\le \\bigg( 1-\\frac{m}{L} \\bigg)(f(x) - f(x^*)) \\end{aligned} $$",
+  "wordCount" : "2128",
+  "inLanguage": "en",
+  "datePublished": "2025-06-11T10:54:33Z",
+  "dateModified": "2025-06-11T10:54:33Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zli1024.github.io/posts/cmu10_725_hw2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zhilin's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zli1024.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zli1024.github.io/" accesskey="h" title="Zhilin&#39;s Blog (Alt + H)">Zhilin&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zli1024.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zli1024.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zli1024.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zli1024.github.io/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zli1024.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zli1024.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      CMU 10-725 HW2
+    </h1>
+    <div class="post-meta"><span title='2025-06-11 10:54:33 +0000 UTC'>June 11, 2025</span>&nbsp;·&nbsp;10 min
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#homework-2-cvx-opt-10-725" aria-label="Homework 2 CVX-OPT 10-725">Homework 2 CVX-OPT 10-725</a><ul>
+                            
+                    <li>
+                        <a href="#1-subgradients-and-proximal-operators" aria-label="1 Subgradients and Proximal Operators">1 Subgradients and Proximal Operators</a></li>
+                    <li>
+                        <a href="#2-properties-of-proximal-mappings-and-subgradients" aria-label="2 Properties of Proximal Mappings and Subgradients">2 Properties of Proximal Mappings and Subgradients</a></li>
+                    <li>
+                        <a href="#3-convergence-rate-for-proximal-gradient-descent" aria-label="3 Convergence Rate for Proximal Gradient Descent">3 Convergence Rate for Proximal Gradient Descent</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    
+    document.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+    
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        if (elements.length > 0) {
+            
+            activeElement = elements[0];
+            const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+            document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+        }
+    
+        
+        const topLink = document.getElementById('top-link');
+        if (topLink) {
+            topLink.addEventListener('click', (event) => {
+                
+                event.preventDefault();
+    
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }, false);
+    
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+    
+    window.addEventListener('scroll', () => {
+        
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+        
+        if (scrollPosition === 0) {
+            return;
+        }
+    
+        
+        if (elements && elements.length > 0) {
+            
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - scrollPosition) > 0 && 
+                    (getOffsetTop(element) - scrollPosition) < window.innerHeight / 2) {
+                    return element;
+                }
+            }) || activeElement;
+    
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                const tocLink = document.querySelector(`.inner ul li a[href="#${id}"]`);
+                if (element === activeElement){
+                    tocLink.classList.add('active');
+    
+                    
+                    const tocContainer = document.querySelector('.toc .inner');
+                    const linkOffsetTop = tocLink.offsetTop;
+                    const containerHeight = tocContainer.clientHeight;
+                    const linkHeight = tocLink.clientHeight;
+    
+                    
+                    const scrollPosition = linkOffsetTop - (containerHeight / 2) + (linkHeight / 2);
+                    tocContainer.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+                } else {
+                    tocLink.classList.remove('active');
+                }
+            });
+        }
+    }, false);
+    
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+    
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+    
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+    
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+    
+</script>
+
+  <div class="post-content"><h2 id="homework-2-cvx-opt-10-725">Homework 2 CVX-OPT 10-725<a hidden class="anchor" aria-hidden="true" href="#homework-2-cvx-opt-10-725">#</a></h2>
+<h3 id="1-subgradients-and-proximal-operators">1 Subgradients and Proximal Operators<a hidden class="anchor" aria-hidden="true" href="#1-subgradients-and-proximal-operators">#</a></h3>
+<p><img loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506141754062.png"></p>
+<p><strong>(i)</strong></p>
+<p>Let $g_1, g_2 \in \partial f(x)$ , therefore we have:
+</p>
+$$
+\begin{aligned}
+f(y) &\ge f(x) + g_1^\top (y-x) \\
+f(y) &\ge f(x) + g_2^\top (y-x) \\
+tf(y) &\ge tf(x) + tg_1^\top (y-x) \qquad \qquad \qquad(1)\\
+(1-t)f(y) &\ge (1-t)f(x) + (1-t)g_2^\top (y-x) \quad (2)\\
+\end{aligned}
+$$<p>
+(1)+(2):
+</p>
+$$
+f(y) \ge f(x) + [tg_1+(1-t)g_2]^\top(y-x)
+$$<p>
+Thus, $g=tg_1+(1-t)g_2 \in \partial f$ and the subdifferential $\partial f(x)$ is a convex set.</p>
+<p><strong>(ii)</strong></p>
+<blockquote>
+<p>Recall that:</p>
+<p>The <em>normal cone</em> of a set $C$ at a boundary point $x_0$ is the set of all vectors $y$ such that $y^\top (x-x_0) \le 0$ for all $x \in C$ (<em>i.e.,</em> the set of vectors that define a supporting hyperplane to $C$ at $x_0$)</p></blockquote>
+<p>Prove:
+</p>
+$$
+\partial f(x) \in N_C(x), \quad where \ C=\{ y: f(y) \le f(x) \}
+$$<p>
+Let $y_0$ be the boundary point, thus $f(y_0) = f(x_0), \ y_0 = x_0 $ and $C=\{y: f(y)\le f(x_0) \}$,</p>
+<p>We need to prove:
+</p>
+$$
+\partial f(x_0)^\top (y - y_0) \le 0
+$$<p>
+for all $y \in C$.</p>
+<p>We know that $\partial f(x_0) = \{g\in \mathbb{R}^n: f(y)\ge f(x_0)+g^\top(y-x_0) \}$, thus:
+</p>
+$$
+\begin{aligned}
+f(y) - f(x_0) &\ge g^\top(y-x_0) \\
+f(y) - f(y_0) &\ge g^\top(y-y_0) \\
+\end{aligned}
+$$<p>
+And $f(y) - f(y_0) \le 0$ , so  $0 \ge f(y) - f(y_0) \ge g^\top(y-y_0)$ . Thus, $\partial f(x_0)^\top (y - y_0) \le 0$</p>
+<p><strong>(iii)</strong></p>
+<p>Let $z = \frac{y}{||y||_q}, ||z||_q = 1$.
+</p>
+$$
+\begin{aligned}
+z^\top x = \frac{y^\top x}{||y||_q} &\le ||x||_p \\
+y^\top x &\le ||x||_p ||y||_q
+\end{aligned}
+$$<p>
+<strong>(iv)</strong></p>
+<p>We need to prove:
+</p>
+$$
+||y||_p \ge ||x||_p + g^\top (y-x), \quad where \ g \in \partial f(x)
+$$<p>
+Let $z^{*} = argmax_{||z||_q\le 1} z^\top x$, therefore, $z^{*\top} x = ||x||_p$</p>
+<p>Thus:
+</p>
+$$
+||x||_p + z^{*\top}(y-x) = ||x||_p + z^{*\top}y - z^{*\top}x = z^{*\top}y \le ||y||_p
+$$<p>
+Therefore, $z^{*}\in \partial f(x)$</p>
+<p><img loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506142255760.png"></p>
+<p><strong>(i)</strong>
+</p>
+$$
+\begin{aligned}
+& \textbf{prox}_{h,t}(x) = \mathop{\arg\min}_{z} \ \frac{1}{2}||z-x||_2^2 + t(\frac{1}{2}z^\top Az+b^\top z+c) \\
+\therefore & \ \ (z-x) + t(Az+b) = 0 \\
+\therefore & \ \ z^{+} = \textbf{prox}_{h,t}(x) = (I+tA)^{-1}(x-tb)
+\end{aligned}
+$$<p>
+Note that $A\in \mathbb{S}_{+}^n$  , and therefore $\textbf{det}(I+tA) > 0$  $(I+tA)$ is invertible.</p>
+<p><strong>(ii)</strong></p>
+<blockquote>
+<p><strong>Lambert W function:</strong> the inverse of the fuction $f(x)=xe^x$;  That is, the W function satisfies: $W(x)e^{W(x)} = x$</p>
+<!-- raw HTML omitted -->
+<p>The graph of <em>y</em> = <em>W</em>(<em>x</em>) for real <em>x</em> &lt; 6 and <em>y</em> &gt; −4. The upper branch (blue) with <em>y</em> ≥ −1 is the graph of the function $W_0$ (principal branch), the lower branch (magenta) with <em>y</em> ≤ −1 is the graph of the function $W_{-1}$. The minimum value of <em>x</em> is at {−1/<em>e</em>, −1}</p></blockquote>
+$$
+\begin{aligned}
+&\textbf{prox}_{h,t}(x) = \mathop{\arg\min}_{z}\frac{1}{2}||z-x||_2^2 + t\sum_{i=1}^{n}z_i \log z_i \\
+&z_i - x_i + t(\log z_i + 1) = 0 \\
+&z_i + t\log z_i = x_i - t \\
+&\exp(\frac{z_i+t\log z_i}{t}) = \exp(\frac{x_i - t}{t}) \\
+&\exp(\frac{z_i}{t})\exp(\log z_i) = \exp(\frac{x_i - t}{t}) \\
+&z_i\exp(\frac{z_i}{t}) = \exp(\frac{x_i - t}{t}) \\
+&\frac{z_i}{t}\exp(\frac{z_i}{t}) = \frac{1}{t}\exp(\frac{x_i - t}{t}) \\
+&\frac{z_i}{t} = W(\frac{z_i}{t}\exp(\frac{z_i}{t})) = W(\frac{1}{t}\exp(\frac{x_i - t}{t})) \\
+&\therefore z_i = t W(\frac{1}{t}\exp(\frac{x_i - t}{t}))
+\end{aligned}
+$$<p><strong>(iii)</strong></p>
+<p>Take gradient $\Longrightarrow 0$
+</p>
+$$
+\begin{aligned}
+& (z-x) + t\frac{z}{||z||_{2}} = 0 \\
+& (1+\frac{t}{||z||_2})z = x \qquad (1)\\
+& ||(1+\frac{t}{||z||_2})z||_2 = ||x||_2 \\
+& (1+\frac{t}{||z||_2})||z||_2 = ||x||_2 \\
+& \Longrightarrow ||z||_2 = ||x||_2 - t \qquad (2) \\
+& (2) \rightarrow (1): z = (1-\frac{t}{||x||_2})x
+\end{aligned}
+$$<p>
+<strong>(iv)</strong></p>
+<p>Take $i$-th variable, the objective function is:
+</p>
+$$
+f(x_i) = \frac{1}{2}(z_i - x_i)^2 + t \cdot \textbf{1}_{z_i\ne 0}
+$$$$
+\begin{aligned}
+① \ z_i = 0:& \\
+			& f(x_i) = \frac{1}{2}x_i^2 \\
+② \ z_i \ne 0:& \\
+			  & \mathop{\text{min}}_{z_i} f(x_i) = \frac{1}{2}(x_i - x_i)^2 + t = t \\
+\\
+\Longrightarrow z_i &= 
+\begin{cases}
+x_i, \quad |x_i| > \sqrt{2t} \\
+0, \quad |x_i| \le \sqrt{2t}
+\end{cases}
+\end{aligned}
+$$<!-- raw HTML omitted -->
+<p><strong>(Bonus) &ndash; 待解决</strong></p>
+<p><a href="chrome-extension://cdonnmffkdaoajfknoeeecmchibpmkmg/assets/pdf/web/viewer.html?file=https%3A%2F%2Fhal.science%2Fhal-03177108v3%2Fdocument">Proximal Operator for the sorted $l_1$ norm</a></p>
+<p>贴上Chatgpt的回答：</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="2-properties-of-proximal-mappings-and-subgradients">2 Properties of Proximal Mappings and Subgradients<a hidden class="anchor" aria-hidden="true" href="#2-properties-of-proximal-mappings-and-subgradients">#</a></h3>
+<p><img alt="image-20250618195241612" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506181952781.png">
+</p>
+$$
+\begin{aligned}
+\text{Prove:}\qquad& \\
+&\text{If} \quad v \in \text{conv}\bigg( \bigcup_{i\in I(x)} \partial f_i(x) \bigg), \ \text{then} \ \ v \in \partial f(x)
+\end{aligned}
+$$<p>
+where $I(x):= \{i: f_i(x)=f(x) \}$</p>
+<p><strong>Proof:</strong></p>
+<p>Let $v = \sum_i \lambda_i g_i$ , where $i\in I(x)$, $g_i \in \partial f_i(x)$, $\lambda_i \ge 0$, $\sum_i \lambda_i = 1$. For a random point $x$:
+</p>
+$$
+\begin{aligned}
+f_i(y) &\ge f_i(x) + g_i^{T}(y-x) \\
+\lambda_i f_i(y) &\ge \lambda_i f_i(x) + \lambda_i g_i^{T}(y-x) \\
+\sum_i \lambda_i f_i(y) &\ge \sum_i \lambda_i f_i(x) + \sum_i \lambda_i g_i^{T}(y-x) \\
+f(y)\sum_i \lambda_i \ge \sum_i \lambda_i f_i(y) &\ge \sum_i \lambda_i f_i(x) + \sum_i \lambda_i g_i^{T}(y-x) = f(x)\sum_i \lambda_i + v^{T}(y-x) \\
+\therefore f(y) &\ge f(x) + v^{T}(y-x) \\
+\therefore v &\in \partial f(x)
+\end{aligned}
+$$<p>
+<img alt="Pasted image 20250620111838" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011354193.png">
+<strong>Proof:</strong>
+</p>
+$$
+prox_t (x) = \mathop{\arg\min}_u \frac{1}{2t}||u-x||_2^2 + h(u) = \mathop{\arg\min}_u f(u)
+$$<p>
+According to the subgradient optimality condition:
+</p>
+$$
+\begin{aligned}
+\partial f(u) \in 0& \\
+\partial (\frac{1}{2t}||u-x||_2^2 + h(u)) \in 0& \\
+\frac{1}{t}(u-x) + \partial h(u) \in 0& \\
+\partial h(u) \in \frac{1}{t}(x-u)& \\
+\Longrightarrow h(y) \ge h(u) + g^{T}(y-u) \\
+\Longrightarrow h(y) \ge h(u) + \frac{1}{t}(x-u)^{T}(y-u), \ \forall y
+\end{aligned}
+$$<p>
+<img alt="Pasted image 20250620151350" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011355052.png">
+</p>
+$$
+\begin{aligned}
+\text{prox}_f(x) &= \mathop{\arg\min}_u \frac{1}{2} ||u-x||_2^2 + f(u) \\
+&= \mathop{\arg\min}_u \frac{1}{2} ||u-x||_2^2 + g(Au+b) \\
+\end{aligned}
+$$<p>
+</p>
+$$
+\begin{aligned}
+\min_u \frac{1}{2}||u-x||_2^2 &+ g(Au+b) \\
+&\Downarrow \\
+\min_u \frac{1}{2}||u-x||_2^2 &+ g(z) \\
+s.t. \ \ z = Au &+ b \\
+\end{aligned}
+$$<p>
+</p>
+$$
+\mathcal{L}(u,z;\lambda) = \frac{1}{2}||u-x||_2^2 + g(z) + \lambda^{T}(z-Au-b)
+$$<p>
+</p>
+$$
+\begin{cases}
+\partial_u \mathcal{L} = (u-x) - A^{T}\lambda = 0 \qquad (1)\\
+\partial_z \mathcal{L} = \partial g(z) + \lambda = 0 \ \qquad \qquad (2)\\
+\partial_{\lambda} \mathcal{L} = z - Au - b = 0 \ \ \quad \qquad (3)
+\end{cases}
+$$<p>
+Plug $(1)$ into $(2)$:
+</p>
+$$
+\begin{aligned}
+z &= Au + b \\ 
+&= A(x+A^T\lambda) + b \\ 
+&= Ax + AA^T\lambda + b \\ 
+&= Ax + a\lambda + b \qquad (4)
+\end{aligned} 
+$$<p>
+Plug $(4)$ into $(1)$:
+</p>
+$$
+\begin{aligned}
+u &= x + A^T\lambda \\
+&= x + \frac{1}{a}A^T(z - Ax - b)
+\end{aligned}
+$$<p>
+Why? $z = \text{prox}_{ag}(Ax+b)$</p>
+<p><img alt="Pasted image 20250620154720" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011355689.png">
+LHS:
+</p>
+$$
+\begin{aligned}
+u^{+} = \text{prox}_{f+g} (x) &= \mathop{\arg\min}_u \ \frac{1}{2}||u-x||_2^2 + f(u) + g(u) \\
+&\Downarrow \\
+\partial (\frac{1}{2}&||u-x||_2^2 + f(u) + g(u)) = 0 \\
+u &- x + \partial f(u) + \partial g(u) = 0
+\end{aligned}
+$$<p>
+RHS:
+Let $y \in \text{dom}(g)$ ,
+</p>
+$$
+\begin{aligned}
+y^{+} &= \text{prox}_g(x) = \mathop{\arg\min}_y \frac{1}{2}||y-x||_2^2 + g(y) \\
+&\Downarrow \\
+y &- x + \partial g(y) \in 0, \quad \partial g(y) \in x - y
+\end{aligned}
+$$<p>
+</p>
+$$
+\begin{aligned}
+u^{+} &= \text{prox}_f(\text{prox}_g(x)) = \text{prox}_f(y) = \mathop{\arg\min}_u \ \frac{1}{2} ||u - y||_2^2 + f(u) \\
+&\Downarrow \\
+& u - y + \partial f(u) \in 0 \\
+\end{aligned}
+$$<p>
+Because $\forall y \in \text{dom}(g)$, $\partial g (\text{prox}_f (y)) \supseteq \partial g(y)$ ,
+</p>
+$$
+\begin{aligned}
+&\therefore \partial g(\text{prox}_f (y)) = \partial g(u) \in x - y \\
+\\
+&\begin{cases}
+y - x + \partial g(u) \in 0 \\
+u - y + \partial f(u) \in 0
+\end{cases} \\
+&\therefore u - x+ \partial g(u) + \partial f(u) \in 0
+\end{aligned}
+$$<h3 id="3-convergence-rate-for-proximal-gradient-descent">3 Convergence Rate for Proximal Gradient Descent<a hidden class="anchor" aria-hidden="true" href="#3-convergence-rate-for-proximal-gradient-descent">#</a></h3>
+<p><img alt="Pasted image 20250620171137" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011356274.png"></p>
+<p><img alt="Pasted image 20250620171208" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011356763.png"></p>
+<p><img alt="Pasted image 20250620171225" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011356215.png">
+</p>
+$$
+\begin{aligned}
+g(x^+) &\le g(x) + \nabla g(x)^T (-\frac{1}{L}\nabla g(x)) + \frac{L}{2}||-\frac{1}{L}\nabla g(x)||_2^2 \\
+&=g(x) - \frac{1}{L}||\nabla g(x)||_2^2 + \frac{1}{2L}||\nabla g(x)||_2^2 \\
+&=g(x) - \frac{1}{2L}||\nabla g(x)||_2^2 \\
+\therefore \ \ & g(x^+) - g(x) \le - \frac{1}{2L}||\nabla g(x)||_2^2
+\end{aligned}
+$$<p>
+<img alt="Pasted image 20250621140707" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011357045.png">
+</p>
+$$
+\begin{aligned}
+g(z) &\ge g(x) + \nabla g(x)^T(z-x) \\
+g(x) - g(z) &\le \nabla g(x)^T (x - z)
+\end{aligned}
+$$<p>
+Plug into the inequality of $(i)$ :
+</p>
+$$
+g(x^+) - g(z) \le \nabla g(x)^T(x - z) - \frac{1}{2L}||\nabla g(x)||_2^2
+$$<p><img alt="Pasted image 20250622112521" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011357543.png">
+From $(ii)$:
+</p>
+$$
+g(x^+) - g(x^*) \le \nabla g(x)^T(x-x^*) - \frac{1}{2L}||\nabla g(x)||_2^2
+$$<p>
+</p>
+$$
+g(x^+) - g(x^*) \le \frac{L}{2}\bigg(\frac{2}{L} \nabla g(x)^T(x-x^*) - \frac{1}{L^2}||\nabla g(x)||_2^2 \bigg)
+$$<p>
+</p>
+$$
+g(x^+) - g(x^*) \le \frac{L}{2}\bigg(2t \nabla g(x)^T(x-x^*) - t^2 ||\nabla g(x)||_2^2 \bigg)
+$$<p>
+</p>
+$$
+g(x^+) - g(x^*) \le \frac{L}{2}\bigg( ||x||^2 -2x^Tx^* - ||x||^2 - t^2||\nabla g(x)||^2 + 2t \nabla g(x)^Tx + 2x^Tx^* -2t\nabla g(x)^T x^* \bigg)
+$$<p>
+</p>
+$$
+g(x^+) - g(x^*) \le \frac{L}{2} \bigg( ||x||^2 - 2x^Tx^* - ||x^+||^2 + 2x^{+T}x^* \bigg)
+$$<p>
+</p>
+$$
+g(x^+) - g(x^*) \le \frac{L}{2} \bigg( ||x-x^*||^2 - ||x^+ - x^*||^2 \bigg)
+$$<p><img alt="Pasted image 20250622144806" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011357172.png">
+</p>
+$$
+\begin{aligned}
+g(x^{(1)}) - g(x^*) &\le \frac{L}{2} \bigg( ||x^{(0)}-x^*||^2 - ||x^{(1)} - x^*||^2 \bigg) \\
+g(x^{(2)}) - g(x^*) &\le \frac{L}{2} \bigg( ||x^{(1)}-x^*||^2 - ||x^{(2)} - x^*||^2 \bigg) \\
+&\vdots \\
+g(x^{(k)}) - g(x^*) &\le \frac{L}{2} \bigg( ||x^{(k-1)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg)
+\end{aligned}
+$$<p>
+Sum both sides:
+</p>
+$$
+\sum_{i=1}^k g(x^{(i)}) - k g(x^*) \le \frac{L}{2}\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg)
+$$<p>
+<strong>LHS:</strong>
+</p>
+$$
+\sum_{i=1}^k g(x^{(i)}) - k g(x^*) \ge k g(x^{(k)}) - kg(x^*)
+$$<p>
+<strong>RHS:</strong>
+</p>
+$$
+\frac{L}{2}\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg) \le \frac{L}{2} ||x^{(0)}-x^*||^2
+$$<p>
+Therefore:
+</p>
+$$
+g(x^{(k)}) - g(x^*) \le \frac{L}{2k} ||x^{(0)} - x^*||^2
+$$<p>
+<strong>Sublinear convergence!</strong></p>
+<p><img alt="Pasted image 20250622154637" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011357600.png"></p>
+<p><img alt="Pasted image 20250622154722" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011357591.png">
+</p>
+$$
+g(x^+) \le g(x) + \nabla g(x)^T (x^+ - x) + \frac{L}{2}||x^+ - x||_2^2
+$$<p>
+</p>
+$$
+g(x^+) - g(x) \le \nabla g(x)^T (x^+ - x) + \frac{L}{2}||x^+ - x||_2^2
+$$<p>
+Plug $G(x)$ into the above inequality:
+</p>
+$$
+g(x^+) - g(x) \le -\frac{1}{L}\nabla g(x)^T G(x) + \frac{1}{2L}||G(x)||^2
+$$<p><img alt="Pasted image 20250622161659" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011358983.png">
+</p>
+$$
+g(z) \ge g(x) + \nabla g(x)^T (z - x)
+$$<p>
+</p>
+$$
+g(x) - g(z) \le \nabla g(x)^T (x - z)
+$$<p>
+Plus to $(i)$:
+</p>
+$$
+\begin{aligned}
+g(x^+) - g(z) &\le \nabla g(x)^T (x - z) -\frac{1}{L}\nabla g(x)^T G(x) + \frac{1}{2L}||G(x)||^2 \\
+\Downarrow \\
+g(x^+) - g(z) &\le \nabla g(x)^T (x^+ - z) + \frac{1}{2t}||x - x^+||^2 \qquad (1)
+\end{aligned}
+$$<p>
+According to Q2 part (b):
+</p>
+$$
+\begin{aligned}
+&\because x^+ = \text{prox}_{th} (x - t\nabla g(x)) \\
+&\therefore h(z) \ge h(x^+) + \frac{1}{t}(x-t\nabla g(x) - x^+)^T(z - x^+), \ \ \forall z \in \mathbb{R}^n \\
+&\Downarrow \\
+&\therefore h(x^+) - h(z) \le -\frac{1}{t}(x-x^+)^T (z - x^+) + \nabla g(x)^T (z-x^+) \qquad (2)
+\end{aligned}
+$$<p>
+(1)+(2):
+</p>
+$$
+f(x^+) - f(z) \le G(x)^T (x^+ - z) + \frac{1}{2L}||G(x)||^2
+$$<p>
+</p>
+$$
+\begin{aligned}
+&G(x)^T (x^+ - z) + \frac{1}{2L}||G(x)||^2 \\
+=& (x-x^+)^T(\frac{1}{2t}x + \frac{1}{2t}x^+ - \frac{1}{t}z) \\
+=& (x-x^+)^T(\frac{1}{t}x - \frac{1}{2t}x + \frac{1}{2t}x^+ - \frac{1}{t}z) \\
+=& (x-x^+)^T(\frac{1}{t}(x - z) - \frac{1}{2t}(x-x^+)) \\
+=& G(x)^T (x-z) - \frac{1}{2L}||G(x)||^2
+\end{aligned}
+$$<p>
+Therefore:
+</p>
+$$
+f(x^+) - f(z) \le G(x)^T (x-z) - \frac{1}{2L}||G(x)||^2
+$$<p><img alt="Pasted image 20250622191709" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011358454.png">
+According to (ii):
+</p>
+$$
+f(x^+) - f(x^*) \le G(x)^T(x-x^*) - \frac{1}{2L}||G(x)||^2
+$$<p>
+</p>
+$$
+f(x^+) - f(x^*) \le \frac{L}{2}\bigg( ||x||^2 - 2x^Tx^* + 2x^{+T}x^* - ||x^+||^2 \bigg)
+$$<p>
+</p>
+$$
+f(x^+) - f(x^*) \le \frac{L}{2}\bigg( ||x||^2 - 2x^Tx^* + \textcolor{red}{||x^*||^2} - \textcolor{red}{||x^*||^2} + 2x^{+T}x^* - ||x^+||^2 \bigg)
+$$<p>
+</p>
+$$
+f(x^+) - f(x^*) \le \frac{L}{2}\bigg( ||x-x^*||^2 - ||x^+ - x^*||^2 \bigg)
+$$<p>
+Now, prove:
+</p>
+$$
+f(x^{(k)}) - f(x^*) \le \frac{L}{2k} ||x^{(0)} - x^*||^2
+$$<p>
+</p>
+$$
+\begin{aligned}
+f(x^{(1)}) - f(x^*) &\le \frac{L}{2} \bigg( ||x^{(0)}-x^*||^2 - ||x^{(1)} - x^*||^2 \bigg) \\
+f(x^{(2)}) - f(x^*) &\le \frac{L}{2} \bigg( ||x^{(1)}-x^*||^2 - ||x^{(2)} - x^*||^2 \bigg) \\
+&\vdots \\
+f(x^{(k)}) - f(x^*) &\le \frac{L}{2} \bigg( ||x^{(k-1)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg)
+\end{aligned}
+$$<p>
+Sum both sides:
+</p>
+$$
+\sum_{i=1}^k f(x^{(i)}) - k f(x^*) \le \frac{L}{2}\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg)
+$$<p>
+<strong>LHS:</strong>
+</p>
+$$
+\sum_{i=1}^k f(x^{(i)}) - k f(x^*) \ge k f(x^{(k)}) - kf(x^*)
+$$<p>
+<strong>RHS:</strong>
+</p>
+$$
+\frac{L}{2}\bigg( ||x^{(0)}-x^*||^2 - ||x^{(k)} - x^*||^2 \bigg) \le \frac{L}{2} ||x^{(0)}-x^*||^2
+$$<p>
+Therefore:
+</p>
+$$
+f(x^{(k)}) - f(x^*) \le \frac{L}{2k} ||x^{(0)} - x^*||^2
+$$<p><img alt="Pasted image 20250626163018" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011358927.png"></p>
+<p><img alt="Pasted image 20250626172806" loading="lazy" src="https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202507011358632.png"></p>
+<p>Proof:
+According to the note,
+</p>
+$$
+\begin{aligned}
+x^+ &= \text{prox}_{t,h}(x-t\nabla g(x)) = \mathop{\arg\min}_y \frac{1}{2t}||y-(x-t\nabla g(x))||_2^2 + h(y) \\
+&= \mathop{\arg\min}_y \frac{1}{2t}\bigg( \textcolor{green}{||y||^2} - \textcolor{green}{2y^Tx} + \textcolor{red}{2t\nabla g(x)^T y} + \textcolor{green}{||x||^2} + t^2||\nabla g(x)||^2 - \textcolor{red}{2t\nabla g(x)^T x}\bigg) + h(y) \\
+&= \mathop{\arg\min}_y \frac{1}{2t}\bigg( \textcolor{red}{2t\nabla g(x)^T(y-x)} + \textcolor{green}{||y-x||^2} \bigg) + h(y) \\
+&= \mathop{\arg\min}_y \nabla g(x)^T(y-x) + \frac{L}{2}||y-x||^2 + h(y)
+\end{aligned}
+$$<p>
+Therefore $\phi (x; \lambda)$ is related to the minimum objective value in the proximal operators.</p>
+<p><strong>Part 1:</strong>
+</p>
+$$
+\begin{aligned}
+&g(x^+) \le g(x) + \nabla g(x)^T(x^+ - x) + \frac{L}{2}||x^+ - x||^2 \\
+&g(x) - g(x^+) \ge \nabla g(x)^T(x-x^+) - \frac{L}{2}||x^+ - x||^2 \\
+&f(x) - f(x^+) \ge \nabla g(x)^T(x-x^+) - \frac{L}{2}||x^+ - x||^2 + h(x) - h(x^+)
+\end{aligned}
+$$<p>
+We know that
+</p>
+$$
+\begin{aligned}
+&\phi(x;L) = -2L (\nabla g(x)^T(x^+ - x)+\frac{L}{2}||x^+-x||^2 + h(x^+)) + 2Lh(x) \\
+&\therefore \frac{1}{2L}\phi(x;L) = \nabla g(x)^T(x-x^+) - \frac{L}{2}||x^+ - x||^2 + h(x) - h(x^+)
+\end{aligned}
+$$<p>
+Therefore: $f(x) - f(x^+) \ge \frac{1}{2L}\phi (x;L)$</p>
+<p><strong>Part 2:</strong>
+Remember $g$ is strongly convex, so:
+</p>
+$$
+\begin{aligned}
+&g(x^*) \ge g(x) + \nabla g(x)^T(x^* - x) + \frac{m}{2}||x^* - x||_2^2 \\
+&g(x) - g(x^*) \le \nabla g(x)^T(x-x^*) - \frac{m}{2}||x^*-x||_2^2 \\
+&f(x) - f(x^*) \le \nabla g(x)^T(x-x^*) - \frac{m}{2}||x^*-x||_2^2 + h(x) - h(x^*) 
+\end{aligned}
+$$<p>
+$x^*$ is the optimal point, so it is not necessary to minimize the objective value in the proximal operators:
+</p>
+$$
+\frac{1}{-2m} \phi (x;m) \le \nabla g(x)^T(x^*-x) + \frac{m}{2}||x^* - x||^2 + h(x^*) - h(x)
+$$<p>
+</p>
+$$
+\begin{aligned}
+&\frac{1}{2m} \phi (x;m) \ge \nabla g(x)^T(x-x^*) - \frac{m}{2}||x^* - x||^2 + h(x) - h(x^*) \\
+&\therefore f(x) - f(x^*) \le \frac{1}{2m}\phi (x;m)
+\end{aligned}
+$$<p>
+Because $g$ is strongly convex, so:
+</p>
+$$
+mI \preceq \nabla^2 g(x) \preceq LI
+$$<p>
+Thus $m \le L$, and finally:
+</p>
+$$
+\begin{aligned}
+&f(x) - f(x^+) \ge \frac{m}{L} \bigg( f(x) - f(x^*) \bigg) \\
+&f(x^+) - f(x^*) \le \bigg( 1-\frac{m}{L} \bigg)(f(x) - f(x^*))
+\end{aligned}
+$$
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zli1024.github.io/tags/convex-optimization/">Convex Optimization</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://zli1024.github.io/posts/ray-tracing/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>近轴光路的光线追迹</span>
+  </a>
+  <a class="next" href="https://zli1024.github.io/posts/%E7%9B%B8%E6%9C%BA%E5%99%AA%E5%A3%B0%E6%A0%87%E5%AE%9A/">
+    <span class="title">Next »</span>
+    <br>
+    <span>相机噪声标定</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://zli1024.github.io/">Zhilin&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <span class="topInner">
+        <svg class="topSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z"/>
+        </svg>
+        <span id="read_progress"></span>
+    </span>
+</a>
+
+<script>
+    document.addEventListener('scroll', function (e) {
+        const readProgress = document.getElementById("read_progress");
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        readProgress.innerText = ((scrollTop / (scrollHeight - clientHeight)).toFixed(2) * 100).toFixed(0);
+    })
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.0.6/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+const images = Array.from(document.querySelectorAll(".post-content img"));
+images.forEach(img => {
+  mediumZoom(img, {
+    margin: 0,  
+    scrollOffset: 40,  
+    container: null,  
+    template: null  
+  });
+});
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

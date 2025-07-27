@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Convex Optimization on Zhilin&#39;s Blog</title>
+    <link>https://zli1024.github.io/tags/convex-optimization/</link>
+    <description>Recent content in Convex Optimization on Zhilin&#39;s Blog</description>
+    <generator>Hugo -- 0.148.1</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Jun 2025 10:54:33 +0000</lastBuildDate>
+    <atom:link href="https://zli1024.github.io/tags/convex-optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMU 10-725 HW2</title>
+      <link>https://zli1024.github.io/posts/cmu10_725_hw2/</link>
+      <pubDate>Wed, 11 Jun 2025 10:54:33 +0000</pubDate>
+      <guid>https://zli1024.github.io/posts/cmu10_725_hw2/</guid>
+      <description>&lt;h2 id=&#34;homework-2-cvx-opt-10-725&#34;&gt;Homework 2 CVX-OPT 10-725&lt;/h2&gt;
+&lt;h3 id=&#34;1-subgradients-and-proximal-operators&#34;&gt;1 Subgradients and Proximal Operators&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://zli1024-pictures.oss-cn-shenzhen.aliyuncs.com/imgs/202506141754062.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(i)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let $g_1, g_2 \in \partial f(x)$ , therefore we have:
+&lt;/p&gt;
+$$
+\begin{aligned}
+f(y) &amp;\ge f(x) + g_1^\top (y-x) \\
+f(y) &amp;\ge f(x) + g_2^\top (y-x) \\
+tf(y) &amp;\ge tf(x) + tg_1^\top (y-x) \qquad \qquad \qquad(1)\\
+(1-t)f(y) &amp;\ge (1-t)f(x) + (1-t)g_2^\top (y-x) \quad (2)\\
+\end{aligned}
+$$&lt;p&gt;
+(1)+(2):
+&lt;/p&gt;
+$$
+f(y) \ge f(x) + [tg_1+(1-t)g_2]^\top(y-x)
+$$&lt;p&gt;
+Thus, $g=tg_1+(1-t)g_2 \in \partial f$ and the subdifferential $\partial f(x)$ is a convex set.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
