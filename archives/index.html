@@ -311,6 +311,17 @@ images.forEach(img => {
     })
 
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('mjx-container').forEach(el => {
+      el.style.overflowX = 'auto';
+      el.style.display = 'block';
+      el.style.maxWidth = '100%';
+      el.style.paddingBottom = '0.5em';
+    });
+  });
+</script>
 </body>
 
 </html>
